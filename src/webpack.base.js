@@ -64,7 +64,7 @@ module.exports={
             template: path.join(baseUrl,'index.html'),
             inject: 'body',
             chunks:['app']
-      }),//html生成
+        }),//html生成
     ],
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.

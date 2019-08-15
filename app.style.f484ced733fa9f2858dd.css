@@ -1,0 +1,6 @@
+.app-home {
+  font-size: 18px; }
+  body[data-theme=default] .app-home {
+    color: #dc2b34; }
+  body[data-theme=light] .app-home {
+    color: #78A4FA; }
