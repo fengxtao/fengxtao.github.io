@@ -3,19 +3,52 @@
 <title>Hello Strapdown</title>
 
 <xmp theme="sketchy" style="display:none;">
-# Markdown text goes in here
+        ### 1.安装ruby
 
-## Chapter 1
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-et dolore magna aliqua. 
-
-## Chapter 2
-
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-culpa qui officia deserunt mollit anim id est laborum.
+        > 因为sass是用ruby语言写的，所以需要安装ruby环境
+        
+        打开安装包去安装ruby，记住要勾选 下面选项来配置环境路径
+        
+        - [x] Add Ruby executables to your PATH
+        
+        安装完成之后继续下一步操作
+        
+        ---
+        
+        ### 2.安装sass
+        
+        在cmd里通过gem安装sass
+        
+        >gem是ruby的包管理工具，类似于nodejs 的npm
+        
+        ```
+        gem install sass
+        
+        ```
+        这个时候如果不翻墙的话是会出问题的，因为：
+        
+        由于国内网络原因（你懂的），导致 rubygems.org 存放在 Amazon S3 上面的资源文件间歇性连接失败。这时候我们可以通过gem sources命令来配置源，先移除默认的https://rubygems.org源，然后添加淘宝的源https://ruby.taobao.org/，然后查看下当前使用的源是哪个，如果是淘宝的，则表示可以输入sass安装命令gem install sass了
+        
+        
+        ```
+        $ gem sources --remove https://rubygems.org/
+        $ gem sources -a https://ruby.taobao.org/ 【如果你系统不支持https，请将淘宝源更换成：gem sources -a http://gems.ruby-china.org】
+        $ gem sources -l
+        *** CURRENT SOURCES ***
+        
+        https://ruby.taobao.org
+        # 请确保只有 ruby.taobao.org
+        $ gem install sass
+        ```
+        安装好之后执行sass -v就可以看到sass的版本了
+        
+        
+        
+        实在实在不行，就安装离线文件吧,但是失败率也很高
+        
+        gem install  ./.../sass-3.4.22.gem
+        
+        
 </xmp>
 
 <script src="./js/strapdown.js"></script>
