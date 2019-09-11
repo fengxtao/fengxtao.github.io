@@ -20,7 +20,7 @@ let proConfig={
 		new clearWebpackPlugin(['dist'],{root: baseUrl}),
 		new htmlWebpackPlugin({
             filename: path.join(baseUrl,'index.html'),
-            template: path.join(baseUrl,'../index.html'),
+            template: path.join(baseUrl,'src/index.html'),
             inject: 'body',
             chunks:['app']
         }),//html生成
