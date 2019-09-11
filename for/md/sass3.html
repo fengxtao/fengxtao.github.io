@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<title>3.sass编译的格式</title>
+
+<xmp theme="sketchy" >
+
+# sass编译的格式
+
+sass编译输出的css有四种格式
+
+* nested 嵌套
+* compact 紧凑
+* expanded 扩展
+* compressed 压缩
+
+> 这些样式会影响输出的css的格式
+
+简单介绍一下：
+
+css默认输出的嵌套
+
+
+```
+ul{
+    font-size:15px;
+    li{
+        list-style:none;
+    }
+}
+```
+---》
+
+
+```
+ul {
+    font-size: 15px; }
+    ul li {
+    list-style: none; }
+```
+
+
+紧凑compact 
+在编译的时候需要执行
+
+
+```
+sass --watch scss:css --style compact
+```
+
+这个时候输出的代码就是
+
+
+```
+ul { font-size: 15px; }
+ul li { list-style: none; padding: 5px; }
+```
+
+
+compressed 压缩
+在编译的时候需要执行
+
+
+```
+sass --watch scss:css --style compressed
+```
+
+--->
+
+
+```
+ul{font-size:15px}ul li{list-style:none;animation:all 0.4s}
+```
+
+expanded 扩展
+更像是平时写的css一样
+
+在编译的时候需要执行
+```
+sass --watch scss:css --style expanded
+```
+--->
+```
+ul {
+    font-size: 15px;
+}
+ul li {
+    list-style: none;
+    animation: all 0.3s;
+}
+```
+
+compressed 压缩
+更像是平时写的css一样
+
+在编译的时候需要执行
+```
+sass --watch scss:css --style compressed
+```
+--->
+```
+.a{width:100px;height:100px;border:1px solid red}.a .b{background:red}
+```
+
+</xmp>
+
+<script src="../js/strapdown.js"></script>
+</html>

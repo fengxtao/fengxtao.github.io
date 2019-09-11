@@ -1,0 +1,357 @@
+<html>
+  <head>
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>i5ting_ztree_toc:6</title>
+		<link href="toc/style/github-bf51422f4bb36427d391e4b75a1daa083c2d840e.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/style/github2-d731afd4f624c99a4b19ad69f3083cd6d02b81d5.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css"/>
+	  <style>
+		pre {
+		    counter-reset: line-numbering;
+		    border: solid 1px #d9d9d9;
+		    border-radius: 0;
+		    background: #fff;
+		    padding: 0;
+		    line-height: 23px;
+		    margin-bottom: 30px;
+		    white-space: pre;
+		    overflow-x: auto;
+		    word-break: inherit;
+		    word-wrap: inherit;
+		}
+
+		pre a::before {
+		  content: counter(line-numbering);
+		  counter-increment: line-numbering;
+		  padding-right: 1em; /* space after numbers */
+		  width: 25px;
+		  text-align: right;
+		  opacity: 0.7;
+		  display: inline-block;
+		  color: #aaa;
+		  background: #eee;
+		  margin-right: 16px;
+		  padding: 2px 10px;
+		  font-size: 13px;
+		  -webkit-touch-callout: none;
+		  -webkit-user-select: none;
+		  -khtml-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+
+		pre a:first-of-type::before {
+		  padding-top: 10px;
+		}
+
+		pre a:last-of-type::before {
+		  padding-bottom: 10px;
+		}
+
+		pre a:only-of-type::before {
+		  padding: 10px;
+		}
+
+		.highlight { background-color: #ffffcc } /* RIGHT */
+		</style>
+  </head>
+  <body>
+	  <div>
+				<div style='width:25%;'>
+						<ul id="tree" class="ztree" style='width:100%'>
+
+						</ul>
+				</div>
+        <div id='readme' style='width:70%;margin-left:20%;'>
+          	<article class='markdown-body'>
+            	<h3 id="-">数据类型</h3>
+<p>在sass里有数字、字符串、列表、颜色等类型</p>
+<p>在cmd里 输入 </p>
+<pre><code>sass -i
+</code></pre><p>就会进入到交互模式，输入的计算可以马上得到结果</p>
+<p>type-of()可以用来得到数据类型，如：</p>
+<pre><code>type-of(5) -&gt; number
+</code></pre><p>注意数字类型的可以包含单位，如：</p>
+<pre><code>type-of(5px) -&gt; number
+</code></pre><p>字符串类型：</p>
+<pre><code>type-of(hello) -&gt; string
+
+type-of(&#39;hello&#39;) -&gt; string
+</code></pre><p>list类型：</p>
+<pre><code>type-of(1px solid red) -&gt; list
+
+type-of(5px 10px) -&gt; list
+</code></pre><p>颜色：</p>
+<pre><code>type-of(red)  -&gt; color
+type-of(rgb(255,0,0)  -&gt; color
+type-of(#333)  -&gt; color
+</code></pre><hr>
+<h3 id="number-">number 计算</h3>
+<pre><code>2+9 -》10
+2*8 -》16
+(8/2) -&gt;4 //除法要写括号
+</code></pre><p>也可以包含单位</p>
+<pre><code>5px + 5px -&gt; 10px
+5px -2 -&gt;3px
+5px *2 -&gt;10px
+
+5px * 2px -&gt;10px*px //这样就不对了哟
+
+（10px/2px） -&gt; 5//除法单位取消
+
+3+2*5px-&gt;13px
+
+</code></pre><h2 id="-">好吧，都是一些小学的数学题，很简单对吧</h2>
+<h3 id="-">处理数字的函数</h3>
+<p>绝对值</p>
+<pre><code>abs(10) -&gt; 10;
+abs(10px) -&gt; 10px;
+abs(-10px) -&gt; 10px;
+
+</code></pre><p>四舍五入相关</p>
+<pre><code>round(3.4)-&gt;3  //四舍五入
+round(3.6)-&gt;4
+
+ceil(3.2)-&gt;4  //向上取整
+ceil(3.6)-&gt;4
+
+floor(3.2)-&gt;3  //向下取整
+floor(3.9)-&gt;3
+
+percentage(600px/1000px) -&gt;65%  //百分之
+
+min(1,2,3) -&gt; 1   //最小值
+
+max(2,3,4,5) -&gt; 5  //最大值
+
+
+</code></pre><hr>
+<h3 id="-">字符串相关</h3>
+<pre><code>//带引号和不带引号的字符串想加为带引号的字符串
+
+&quot;a&quot; + b -&gt;&quot;ab&quot;
+a + &quot;b&quot; -&gt;&quot;ab&quot;
+
+//字符串+数字
+&quot;ab&quot; + 1 -&gt;&quot;ab1&quot;
+
+//字符串 - 和 / 字符串
+&quot;a&quot; - b -&gt;&quot;a-b&quot;
+&quot;a&quot; / b -&gt;&quot;a/b&quot;
+
+//注意字符串不能相乘
+</code></pre><hr>
+<h3 id="-">字符串函数</h3>
+<p>大写：</p>
+<pre><code>$word:&quot;hello&quot;;
+to-upper-case($word) -&gt; &quot;HELLO&quot;
+</code></pre><p>小写：</p>
+<pre><code>$word:&quot;Hello&quot;;
+to-lower-case($word) -&gt; &quot;hello&quot;
+</code></pre><p>得到length：</p>
+<pre><code>$word:&quot;Hello&quot;;
+str-length($word) -&gt; 5
+</code></pre><p>得到字符串在字符串里的位置：</p>
+<pre><code>$word:&quot;Hello&quot;;
+str-index($word,&quot;el&quot;) -&gt; 2
+</code></pre><p>字符串中插入字符串：</p>
+<pre><code>$word:&quot;Hello&quot;;
+str-insert($word,&quot;aa&quot;,2) -&gt; &quot;Haaello&quot;
+</code></pre><hr>
+<h3 id="-">颜色相关</h3>
+<p>在sass里除了关键字、十六进制、rgb和rgba之外还有一种颜色是HSL</p>
+<p>分别表示的是 色相 0-360（deg） 饱和度 0-100% 明度 0-100%</p>
+<p>例如：</p>
+<pre><code>body {
+    background-color:hsl(0,100%,50%);
+}
+
+-》
+
+body {
+  background-color: red;
+}
+</code></pre><pre><code>body {
+    background-color:hsl(60,100%,50%);
+}
+
+-》
+
+body {
+  background-color: yellow;
+}
+</code></pre><p>也可以有透明哟</p>
+<pre><code>body {
+    background-color:hsl(60,100%,50%，0.5);
+}
+
+-》
+
+body {
+  background-color: rgba(255,255,0,0.5);
+}
+</code></pre><hr>
+<h3 id="-">颜色函数</h3>
+<p>lighten函数和darken函数可以把颜色加深或减淡，即调整明度，第一个参数为颜色，第二个参数为百分比，例如：</p>
+<pre><code>$color:#ff0000;
+
+$light-color:lighten($color,30%);
+
+$dark-color:darken($color,30%);
+
+.a{
+    color:$color;
+    background:$light-color;
+    border-color:$dark-color;
+}
+</code></pre><p>---》</p>
+<pre><code>.a {
+  color: #ff0000;
+  background: #ff9999;
+  border-color: #660000;
+}
+
+</code></pre><p>saturate和desaturate函数可以调整颜色的纯度</p>
+<pre><code>$color:hsl(0,50%,50%);
+
+$saturate-color:saturate($color,50%);
+
+$desaturate-color:desaturate($color,30%);
+
+.a{
+    color:$color;
+    background:$saturate-color;
+    border-color:$desaturate-color;
+}
+</code></pre><p>--》</p>
+<pre><code>.a {
+  color: #bf4040;
+  background: red;
+  border-color: #996666;
+}
+</code></pre><p>用transparentize来让颜色更透明</p>
+<p>用opatify来让颜色更不透明</p>
+<pre><code>$color:rgba(255,0,0,0.5);
+
+$opacify-color:opacify($color,0.3);
+
+$transparentize-color:transparentize($color,0.3);
+
+.a{
+    color:$color;
+    background:$opacify-color;
+    border-color:$transparentize-color;
+}
+</code></pre><p>---》</p>
+<pre><code>.a {
+  color: rgba(255, 0, 0, 0.5);
+  background: rgba(255, 0, 0, 0.8);
+  border-color: rgba(255, 0, 0, 0.2);
+}
+</code></pre><hr>
+<h3 id="-">列表类型</h3>
+<p>在sass里，用空格或者逗号隔开的值就是列表类型
+如：</p>
+<pre><code>1px solid red
+
+Courier,microsoft yahei
+</code></pre><hr>
+<h3 id="-">列表函数</h3>
+<p>sass里的列表类似与数组</p>
+<pre><code>获取列表的长度
+length(5px 10x)  2
+
+获取列表中的第几个元素
+nth(5px 10px,2)  10px
+
+获取一个元素在一个列表里的下标
+index(1px solid red,solid) 2
+
+给列表里加入新的元素
+append(5px 10px,5px)  5px 10px 5px
+
+连接两个列表
+join(5px 10px,5px 0) 5px 10px 5px 0
+
+</code></pre><hr>
+<h3 id="map-">map类型</h3>
+<p>sass里的map类型类似与js里的object</p>
+<pre><code>$map:(key1:value1,key2:value2,key3:value3);
+</code></pre><hr>
+<h3 id="map-">map 函数</h3>
+<pre><code>//定义一个map
+$color:(light:#ffffff,dark:#000000);
+
+//获取map 的length
+length($color)    -&gt;2
+
+//得到map里key对应的值
+map-get($color,dark)   -&gt;#000000
+
+获取map里的所有键的列表
+map-keys($color)   -&gt;(&quot;light&quot;,&quot;dark&quot;) //列表类型
+
+获取map里的所有值的列表
+map-values($color)  -&gt; (&quot;#ffffff&quot;,&quot;#000000&quot;) //列表类型
+
+判断map里是否含有这个key
+map-has-key($color,light)   -&gt;true
+
+给map里添加键值对
+map-merge($color,(light-gray:#cccccc))
+
+-&gt;(light:#ffffff,dark:#000000,light-gray:#cccccc)
+
+移除map里的某个键值对
+map-remove($colors,light)  -&gt;(dark:#000000,light-gray:#cccccc)
+</code></pre><hr>
+<h3 id="boolean-">boolean类型</h3>
+<p>在sass里通过&gt; &lt; 比较得到的值就是布尔值 true 和false</p>
+<pre><code>5px&gt;3px -&gt; true
+
+5px&lt;2px -&gt; false
+</code></pre><p>在sass里也可以有或 且 非</p>
+<p>且：</p>
+<pre><code>(5px &gt; 3px) and (5px &lt; 2px) -&gt; false
+(5px &gt; 3px) and (5px &gt; 2px) -&gt; true
+</code></pre><p>或：</p>
+<pre><code>(5px &gt; 3px) or (5px &lt; 2px) -&gt; true
+(5px &lt; 3px) and (5px &gt; 2px) -&gt; false
+</code></pre><p>非：</p>
+<pre><code>not(5px&gt;3px) -&gt; false
+</code></pre><hr>
+<h3 id="interpolation">interpolation</h3>
+<p>在sass里可以通过interpolation的方式来在变量名和属性名上拼接变量值，例如</p>
+<pre><code>$name:&quot;info&quot;;
+$attr:&quot;border&quot;;
+
+.alert-#{$name}{
+    #{$attr}-color:red;
+}
+</code></pre><p>----&gt;</p>
+<pre><code>.alert-info {
+  border-color: red;
+}
+</code></pre>
+          	</article>
+        </div>
+		</div>
+  </body>
+</html>
+<script type="text/javascript" src="toc/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="toc/js/ztree_toc.js"></script>
+<script type="text/javascript" src="toc_conf.js"></script>
+
+<SCRIPT type="text/javascript" >
+<!--
+$(document).ready(function(){
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+    
+    var conf = eval(jquery_ztree_toc_opts);
+		$('#tree').ztree_toc(conf);
+});
+//-->
+</SCRIPT>

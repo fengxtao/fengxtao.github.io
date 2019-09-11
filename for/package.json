@@ -1,0 +1,26 @@
+{
+  "name": "fengxtao.github.io",
+  "version": "1.0.0",
+  "description": "mypage",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build":"node scripts/start.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fengxtao/fengxtao.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fengxtao/fengxtao.github.io/issues"
+  },
+  "homepage": "https://github.com/fengxtao/fengxtao.github.io#readme",
+  "dependencies": {
+    "tplus-pos": "^1.1.179"
+  },
+  "devDependencies": {
+    "i5ting_toc": "^1.1.5"
+  }
+}

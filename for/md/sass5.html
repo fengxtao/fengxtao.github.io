@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<title>5.变量、嵌套、混合（mixin）、继承拓展、@import、comment</title>
+
+<xmp theme="sketchy" >
+# 变量的意义
+
+在sass里我们可以定义多个变量来存放颜色、边框等等的样式，这样就可以在下面想要使用样式的时候使用变量了
+
+这样的优点就是便于维护，更改方便
+
+---
+
+### 变量的使用
+
+可以通过$来定义变量，在变量名字中可以使用-和_来作为连接，并且-和_是可以互通的，就是用起来一模一样。
+
+变量的值可以是字符串、数字、颜色等等，在变量里还可以使用其他变量，使用的时候直接写变量名就好了
+
+例如
+
+```
+$primary-color:#ff6600;
+$primary-border:1px solid $primary_color;
+
+div.box{
+    background:$primary-color;
+}
+
+h1.page-header{
+    border:$primary-border;
+}
+```
+
+---》
+
+
+```
+div.box {
+    background: #ff6600;
+}
+
+h1.page-header {
+    border: 1px solid #ff6600;
+}
+```
+---
+
+### 嵌套的使用
+
+合理的使用嵌套语法，可以使我们编写代码更为快捷
+
+假设我们想写这样的css：
+
+
+```
+.nav {
+    height: 100px;
+}
+.nav ul {
+    margin: 0;
+}
+.nav ul li {
+    float: left;
+    list-style: none;
+    padding: 5px;
+}
+```
+在sass里我们可以这样写
+
+
+```
+.nav{
+    height:100px;
+    ul{
+        margin:0;
+        li {
+            float:left;
+            list-style:none;
+            padding:5px;
+        }
+    }
+}
+```
+
+大家会发现，写出来的代码父和子之间都有空格隔开，如果我们需要给a加上伪类的话我们这样写
+
+
+```
+.nav{
+    height:100px;
+    a{
+        color:#fff;
+        :hover{
+            color:#ff6600;
+        }
+    }
+}
+
+```
+
+在里面就会出现这样的情况
+
+
+```
+.nav a :hover {
+    color: #ff6600;
+}
+```
+我们发现在a和:hover之间有了空格，这样是不好的，所以我们需要在写的时候在：hover之前把a加上，这样就需要用到在之类里引用父类选择器的方式，我们可以用&符号代替父类
+
+例如：
+
+
+```
+.nav{
+    height:100px;
+    a{
+        color:#fff;
+        &:hover{
+            color:#ff6600;
+        }
+    }
+}
+```
+这样就好了，下面来个完整的代码：
+
+
+```
+.nav{
+    height:100px;
+    ul{
+        margin:0;
+        li{
+            float:left;
+            list-style:none;
+            padding:5px;
+        }
+        a{
+            display:block;
+            color:#000;
+            &:hover{
+                color:#f60;
+                background:red;
+            }
+        }
+    }
+
+    & &-text{
+        font-size:15px;
+    }
+}
+```
+
+-----》
+
+
+```
+.nav {
+    height: 100px;
+}
+.nav ul {
+    margin: 0;
+}
+.nav ul li {
+    float: left;
+    list-style: none;
+    padding: 5px;
+}
+.nav ul a {
+    display: block;
+    color: #000;
+}
+.nav ul a:hover {
+    color: #f60;
+    background: red;
+}
+.nav .nav-text {
+    font-size: 15px;
+}
+```
+---
+
+### 嵌套属性
+
+我们可以把一些个复合属性的子属性来嵌套编写，加快编写速度，例如
+
+
+```
+body{
+    font:{
+        family:Helvitica;
+        size:15px;
+        weight:bold;
+    }
+}
+.nav{
+    border:1px solid red{
+        left:none;
+        right:none;
+    }
+}
+
+.page-next{
+    transition:{
+        property:all;
+        delay:2s;
+    }
+}
+```
+
+
+-----》
+
+```
+body {
+    font-family: Helvitica;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.nav {
+    border: 1px solid red;
+    border-left: none;
+    border-right: none;
+}
+
+.page-next {
+    transition-property: all;
+    transition-delay: 2s;
+}
+```
+---
+
+### mixin 混合
+
+>你可以把它想象成一个有名字的定义好的样式
+
+每一个mixin都有自己的名字，类似于js里的函数定义方法如下
+
+
+```
+@mixin 名字(参数1，参数2...){
+    ...
+}
+```
+
+使用方法是在其他选择器css样式里通过@include引入，其实就相当于将mixin里的代码写入到这个选择器的css里，如下：
+
+
+```
+@mixin alert {
+    color:#f60;
+    background-color:#f60;
+    a{
+        color:pink;
+    }
+    &-a{
+        color:red;
+    }
+}
+
+.alert-warning{
+    @include alert;
+}
+```
+
+
+-----》
+
+
+```
+.alert-warning {
+    color: #f60;
+    background-color: #f60;
+}
+.alert-warning a {
+    color: pink;
+}
+.alert-warning-a {
+    color: red;
+}
+```
+---
+
+刚才是没有参数的mixin，mixin也可以拥有参数，需要注意的是：
+* 形参的名字前要加$
+* 传参的时候只写值的话要按顺序传
+* 传参的时候不想按顺序的话需要加上形参名字
+
+例如：
+
+```
+@mixin alert($color,$background) {
+    color:$color;
+    background-color:$background;
+    a{
+        color:darken($color,10%);//把颜色加深百分之十
+    }
+}
+
+.alert-warning{
+    @include alert(red,blue);
+}
+
+.alert-info{
+    @include alert($background:red,$color:blue);
+}
+```
+
+**------》**
+
+
+```
+.alert-warning {
+    color: red;
+    background-color: blue;
+}
+.alert-warning a {
+    color: #cc0000;
+}
+
+.alert-info {
+    color: blue;
+    background-color: red;
+}
+.alert-info a {
+    color: #0000cc;
+}
+```
+---
+
+### 继承拓展 extend
+
+如果我们有一个选择器想要拥有另一个选择所有的东西，不管是样式还是子元素等等，可以使用@extend来继承
+
+大家需要注意的是，++b继承a的时候，a的子元素设置了样式，也会给b的子元素设置样式++，达到完全一样的情况，例如：
+
+```
+.alert {
+    padding:5px;
+}
+
+.alert a {
+    font:{
+        weight:bold;
+        size:15px;
+    }
+}
+
+.alert-info {
+    @extend .alert;
+    backgournd:skyblue;
+}
+```
+
+
+----》
+
+```
+.alert, .alert-info {
+    padding: 5px;
+}
+
+.alert a, .alert-info a {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.alert-info {
+    backgournd: skyblue;
+}
+```
+
+
+---
+
+### partials
+
+在以前咱们编写css的时候，一个css引入另一个css需要使用@import，其实这是不好的，会多发一次http请求，影响咱们站点的响应速度。
+
+在sass里，咱们可以把小的sass文件分出去，叫做partials，在某个sass里通过@import ‘partials名’去引入，注意路径哟，这样的话就可以把partials里的代码引到咱们大的sass里一起编译
+
+* 需要注意的是 partials的文件名前要加_
+
+
+###### _base.sass  :
+
+
+```
+body{
+    margin:0;
+    padding:0;
+}
+```
+###### style.sass :
+
+
+```
+@import "base";
+
+.alert {
+    padding:5px;
+}
+
+.alert a {
+    font:{
+        weight:bold;
+        size:15px;
+    }
+}
+
+.alert-info {
+    @extend .alert;
+    backgournd:skyblue;
+}
+```
+
+
+----------->
+
+
+```
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.alert, .alert-info {
+    padding: 5px;
+}
+
+.alert a, .alert-info a {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.alert-info {
+    backgournd: skyblue;
+}
+```
+
+这样的话我们就可以把模块化的思想引入到sass里了
+
+---
+
+### comment注释
+
+sass里的注释有三种
+
+* 多行注释
+* 单行注释
+* 强制注释
+
+多行注释：压缩后不会出现在css里 /*  */
+
+单行注释: 不会出现在css里 //
+
+强制注释：压缩后也会出现在css里 /*!  */
+
+</xmp>
+
+<script src="../js/strapdown.js"></script>
+</html>
