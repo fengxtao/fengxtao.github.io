@@ -1,0 +1,17 @@
+*~
+.DS_Store
+_mocha
+node_modules/.bin
+node_modules
+manifest.json
+package-lock.json
+src/www
+.project
+mockdetail.js
+tasks.json
+dist
+launch.json
+internals.zip
+nodejs.zip
+tsconfig.json
+.webpack_cache
