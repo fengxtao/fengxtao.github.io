@@ -19,8 +19,10 @@ class Hello extends React.Component<HelloProps, {}> {
     }
     componentDidMount(){
        let bgImg = document.createElement("image");
+       debugger
        bgImg.setAttribute("src",'./dist/115641568280537_.pic_hd.jpg');
        bgImg.onload=function(){
+           debugger
         imgContainer.appendChild(bgImg);
        }
     }
