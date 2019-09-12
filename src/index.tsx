@@ -19,13 +19,12 @@ class Hello extends React.Component<HelloProps, {}> {
     }
     componentDidMount(){
        let bgImg = document.createElement("img");
-       alert()
        bgImg.setAttribute("src",'./dist/115641568280537_.pic_hd.jpg');
        bgImg.style.width="100%";
        bgImg.style.height="100%";
        bgImg.onload=function(){
-           debugger
-        imgContainer.appendChild(bgImg);
+         imgContainer.appendChild(bgImg);
+         document.getElementById('app').style.background='transparent'
        }
     }
     render() {
