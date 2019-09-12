@@ -9,7 +9,6 @@ src/www
 .project
 mockdetail.js
 tasks.json
-dist
 launch.json
 internals.zip
 nodejs.zip
