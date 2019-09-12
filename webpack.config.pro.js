@@ -10,7 +10,8 @@ const baseUrl=path.resolve(__dirname);
 
 const baseConfig=require('./webpack.base');
 let proConfig={
-	mode:'production',
+    mode:'production',
+    
 	// output: {
     //     filename: '[name]_main_[hash].js',
     //     path: path.resolve(baseUrl,'dist'),
