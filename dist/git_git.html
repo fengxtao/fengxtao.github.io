@@ -1,0 +1,124 @@
+<html>
+  <head>
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>i5ting_ztree_toc:git</title>
+		<link href="toc/style/github-bf51422f4bb36427d391e4b75a1daa083c2d840e.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/style/github2-d731afd4f624c99a4b19ad69f3083cd6d02b81d5.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css"/>
+	  <style>
+		pre {
+		    counter-reset: line-numbering;
+		    border: solid 1px #d9d9d9;
+		    border-radius: 0;
+		    background: #fff;
+		    padding: 0;
+		    line-height: 23px;
+		    margin-bottom: 30px;
+		    white-space: pre;
+		    overflow-x: auto;
+		    word-break: inherit;
+		    word-wrap: inherit;
+		}
+
+		pre a::before {
+		  content: counter(line-numbering);
+		  counter-increment: line-numbering;
+		  padding-right: 1em; /* space after numbers */
+		  width: 25px;
+		  text-align: right;
+		  opacity: 0.7;
+		  display: inline-block;
+		  color: #aaa;
+		  background: #eee;
+		  margin-right: 16px;
+		  padding: 2px 10px;
+		  font-size: 13px;
+		  -webkit-touch-callout: none;
+		  -webkit-user-select: none;
+		  -khtml-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+
+		pre a:first-of-type::before {
+		  padding-top: 10px;
+		}
+
+		pre a:last-of-type::before {
+		  padding-bottom: 10px;
+		}
+
+		pre a:only-of-type::before {
+		  padding: 10px;
+		}
+
+		.highlight { background-color: #ffffcc } /* RIGHT */
+		</style>
+  </head>
+  <body>
+	  <div>
+				<div style='width:25%;'>
+						<ul id="tree" class="ztree" style='width:100%'>
+
+						</ul>
+				</div>
+        <div id='readme' style='width:70%;margin-left:20%;'>
+          	<article class='markdown-body'>
+            	<p>1.配置 </p>
+<p>git config –global user.name ‘xxxxx’ </p>
+<p>git config –global user.email ‘<a href="mailto:xxx@xx.xxx">xxx@xx.xxx</a>’</p>
+<p>2.生成秘钥 </p>
+<p>ssh-keygen -t rsa -C ‘上面的邮箱’</p>
+<p>mac 获取ssh  cat ~/.ssh/id_rsa.pub</p>
+<p>git config core.ignorecase false 大小写敏感</p>
+<p>版本回退</p>
+<p>git   log</p>
+<p>git re<strong>set</strong> --hard HEAD^</p>
+<p>git reset --hard 1094a</p>
+<p>git  reflog</p>
+<p>查看工作区和版本库  暂存区</p>
+<p>git diff HEAD -- readme.txt</p>
+<p>git reset HEAD readme.txt 拉取最近一次提交到版本库的文件到暂存区 改操作不影响工作区</p>
+<p>git checkout -- readme.txt 拉取暂存区文件 并将其替换成工作区文件</p>
+<p>远程仓库</p>
+<p>添加远程仓库 并push</p>
+<p> git remote add origin <a href="mailto:git@github.com">git@github.com</a>:michaelliao/learngit.git</p>
+<p> git push -u origin master</p>
+<p> git push origin master</p>
+<p>克隆项目 </p>
+<p>git clone <a href="mailto:git@github.com">git@github.com</a>:michaelliao/gitskills.git</p>
+<p>分支</p>
+<p>查看分支：git branch</p>
+<p>创建分支：git branch <name></p>
+<p>切换分支：git checkout <name></p>
+<p>创建+切换分支：git checkout -b <name></p>
+<p>合并某分支到当前分支：git merge <name></p>
+<p>删除分支：git branch -d <name></p>
+<p>1.按键盘字母 i 进入insert模式</p>
+<p>2.修改最上面那行黄色合并信息,可以不修改</p>
+<p>3.按键盘左上角&quot;Esc&quot;</p>
+<p>4.输入&quot;:wq&quot;,注意是冒号+wq,按回车键即可</p>
+<p>git pull --allow-unrelated-histories</p>
+
+          	</article>
+        </div>
+		</div>
+  </body>
+</html>
+<script type="text/javascript" src="toc/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="toc/js/ztree_toc.js"></script>
+<script type="text/javascript" src="toc_conf.js"></script>
+
+<SCRIPT type="text/javascript" >
+<!--
+$(document).ready(function(){
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+    
+    var conf = eval(jquery_ztree_toc_opts);
+		$('#tree').ztree_toc(conf);
+});
+//-->
+</SCRIPT>
