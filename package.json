@@ -9,7 +9,7 @@
     "dev": "webpack-dev-server --open --config webpack.config.dev.js --mode development",
     "nodeDev": " node scripts/start",
     "start": "npm run transformMD &&  npm run nodeDev",
-    "build": "npm run transformMD && webpack --config webpack.config.pro.js --mode development"
+    "build": "npm run transformMD && webpack --config webpack.config.pro.js --mode production"
   },
   "author": "",
   "license": "ISC",
