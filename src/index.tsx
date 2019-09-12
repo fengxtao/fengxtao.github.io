@@ -22,6 +22,7 @@ class Hello extends React.Component<HelloProps, {}> {
        bgImg.setAttribute("src",'./dist/115641568280537_.pic_hd.jpg');
        bgImg.style.width="100%";
        bgImg.style.height="100%";
+       bgImg.style.zIndex="-1";
        bgImg.onload=function(){
          imgContainer.appendChild(bgImg);
          document.getElementById('app').style.background='transparent'
