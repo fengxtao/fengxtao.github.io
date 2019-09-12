@@ -62,12 +62,6 @@ module.exports={
     },
     plugins:[
         new ExtractTextPlugin('[name].style.[hash].css'),
-        new htmlWebpackPlugin({
-            filename: path.join(baseUrl,'index.html'),
-            template: path.join(baseUrl,'src/index.html'),
-            inject: 'body',
-            chunks:['app']
-        }),//html生成
         new webpack.DefinePlugin( {
             // "__TITLE__":JSON.stringify(titles)
         } )

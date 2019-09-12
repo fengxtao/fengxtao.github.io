@@ -16,7 +16,7 @@ class Hello extends React.Component<HelloProps, {}> {
 
     }
     render() {
-        alert()
+       
         return (
             this.props.catalogue.map((el:catalogueEl)=>{
                 return <h1> <a href={`${el.src}`}> {el.title} </a> </h1>
@@ -25,7 +25,6 @@ class Hello extends React.Component<HelloProps, {}> {
         // return <h1>Hello from {this.props.compiler} and {this.props.framework}!</h1>;
     }
 }
-alert()
 ReactDOM.render(
     <Hello compiler="TypeScript" framework="React" catalogue={catalogue} />
   , document.getElementById('app')

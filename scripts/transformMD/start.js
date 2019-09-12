@@ -62,7 +62,7 @@ sourceFileConfig.forEach((file)=>{
 //生成目录对象文件
 setTimeout(()=>{
     let titles=[];
-    const htmlFilesPath=pwd+'/preview';
+    const htmlFilesPath=pwd+'/dist';
     if( fs.existsSync( htmlFilesPath ) ) {
         let stats = fs.statSync( htmlFilesPath )
         if( stats.isDirectory() ){

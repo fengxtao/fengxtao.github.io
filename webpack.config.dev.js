@@ -15,6 +15,12 @@ let devConfig={
   plugins: [
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),//代码模块热替换
+    new htmlWebpackPlugin({
+      filename: path.join(baseUrl,'dist/index.html'),
+      template: path.join(baseUrl,'src/index.html'),
+      inject: 'body',
+      chunks:['app']
+  }),//html生成
   ],
   devtool: 'inline-source-map',//开发助手
   // devServer: {
