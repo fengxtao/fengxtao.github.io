@@ -6,3 +6,35 @@
     color: themed('text-color-primary');
   }
 }
+html,body{
+  height: 100%;
+  width:100%;
+  margin:0;
+}
+div{
+  box-sizing: border-box;
+}
+a{text-decoration:none}
+.app-home{
+  height: 100%;;
+}
+#app{
+  height: 100%;
+  background: url('./img/IMG_20190906_115133.jpg') no-repeat;
+  background-size:cover;
+  display: flex;
+  flex-direction: column;
+  .head{
+    height: 100px;
+    // background: green;
+    flex-grow: 0;
+  }
+  .catalogue-container{
+    flex-grow: 1;
+    padding: 20px 100px;
+    // background: hotpink;
+    a{
+      color:white;
+    }
+  }
+}

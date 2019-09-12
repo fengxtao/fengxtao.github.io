@@ -6,10 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "transformMD": "node scripts/transformMD/start.js",
-
     "dev": "webpack-dev-server --open --config webpack.config.dev.js --mode development",
-
-    "nodeDev" : " node scripts/start",
+    "nodeDev": " node scripts/start",
     "start": "npm run transformMD &&  npm run nodeDev",
     "build": "npm run transformMD && webpack --config webpack.config.pro.js --mode production"
   },
@@ -40,7 +38,7 @@
     "inquirer": "^6.2.2",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.12.0",
     "opn": "^6.0.0",
     "postcss-loader": "^3.0.0",
     "request": "^2.88.0",

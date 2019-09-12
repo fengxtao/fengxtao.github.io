@@ -1,0 +1,35 @@
+.app-home {
+  font-size: 18px; }
+  body[data-theme=default] .app-home {
+    color: #dc2b34; }
+  body[data-theme=light] .app-home {
+    color: #78A4FA; }
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0; }
+
+div {
+  box-sizing: border-box; }
+
+a {
+  text-decoration: none; }
+
+.app-home {
+  height: 100%; }
+
+#app {
+  height: 100%;
+  background: url(a8e1b36f3fabd05898489410c8480636.jpg) no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column; }
+  #app .head {
+    height: 100px;
+    flex-grow: 0; }
+  #app .catalogue-container {
+    flex-grow: 1;
+    padding: 20px 100px; }
+    #app .catalogue-container a {
+      color: white; }
