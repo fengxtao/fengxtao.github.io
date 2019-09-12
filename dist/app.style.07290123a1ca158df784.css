@@ -23,7 +23,7 @@ a {
   height: 100%;
   position: relative;
   background-size: cover;
-  background: black;
+  background: red;
   display: flex;
   flex-direction: column; }
   #app .bg {

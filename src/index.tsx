@@ -42,6 +42,7 @@ class Hello extends React.Component<HelloProps, {}> {
         )
     }
 }
+
 ReactDOM.render(
     <Hello compiler="TypeScript" framework="React" catalogue={catalogue} />
   , document.getElementById('app')
