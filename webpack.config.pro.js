@@ -11,13 +11,13 @@ const baseUrl=path.resolve(__dirname);
 const baseConfig=require('./webpack.base');
 let proConfig={
 	mode:'production',
-	output: {
-        filename: '[name]_main_[hash].js',
-        path: path.resolve(baseUrl),
-        chunkFilename: '[name]_chunk_[chunkhash].js',
-    },
+	// output: {
+    //     filename: '[name]_main_[hash].js',
+    //     path: path.resolve(baseUrl,'dist'),
+    //     chunkFilename: '[name]_chunk_[chunkhash].js',
+    // },
 	plugins: [
-		new clearWebpackPlugin(['dist'],{root: baseUrl}),
+		// new clearWebpackPlugin(['dist'],{root: baseUrl}),
 		new htmlWebpackPlugin({
             filename: path.join(baseUrl,'index.html'),
             template: path.join(baseUrl,'src/index.html'),

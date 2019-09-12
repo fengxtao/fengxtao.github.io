@@ -5,10 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "transformMD": "node scripts1/start.js",
-    "build": "npm run transformMD && webpack --config webpack.config.pro.js --mode production",
+    "transformMD": "node scripts/transformMD/start.js",
+
     "dev": "webpack-dev-server --open --config webpack.config.dev.js --mode development",
-    "start": "npm run transformMD &&  node scripts/start"
+
+    "nodeDev" : " node scripts/start",
+    "start": "npm run transformMD &&  npm run nodeDev",
+    "build": "npm run transformMD && webpack --config webpack.config.pro.js --mode production"
   },
   "author": "",
   "license": "ISC",

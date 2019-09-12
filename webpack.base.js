@@ -12,7 +12,7 @@ module.exports={
     },
     output: {
         filename: '[name]_main_[hash].js',
-        path: path.resolve(__dirname),
+        path: path.resolve(__dirname,'dist'),
         chunkFilename: '[name]_chunk_[chunkhash].js',
     },
     module: {
