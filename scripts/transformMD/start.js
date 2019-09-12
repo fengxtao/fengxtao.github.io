@@ -73,7 +73,7 @@ setTimeout(()=>{
                 if(dir_file_last === 'html'){
                     titles.push({
                         src:path.join('dist',dir_file),
-                        title:dir_file
+                        title:dir_file_name
                     })
                 }
             })
