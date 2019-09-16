@@ -23,10 +23,10 @@ function create(source_file_name,dest_file_path){
     require('i5ting_toc')(pwd, source_file_name, dest_file_path, is_open, markd_config);
 }
 //函数可以返回当前正在执行的项目路径 
-const distPath = process.cwd()+'/dist'
+const distPath = process.cwd()+'/preview'
 const srcPath = process.cwd()+'/src/source_files'
 
-//删除dist目录
+//preview
 if( fs.existsSync( distPath ) ){
     execSync(`rm -r ${distPath}`,function(error,stdout,stderr){
         if (error) {
@@ -37,7 +37,6 @@ if( fs.existsSync( distPath ) ){
         console.log(`stderr: ${stderr}`);
     });
 }
-
 //sourceFileConfig 创建md 为html
 const sourceFileConfig=require('./source.file.config.js')
 sourceFileConfig.forEach((file)=>{
@@ -59,31 +58,9 @@ sourceFileConfig.forEach((file)=>{
     }
 })
 
-//生成目录对象文件
-setTimeout(()=>{
-    let titles=[];
-    const htmlFilesPath=pwd+'/dist';
-    if( fs.existsSync( htmlFilesPath ) ) {
-        let stats = fs.statSync( htmlFilesPath )
-        if( stats.isDirectory() ){
-            var dir=fs.readdirSync(htmlFilesPath);
-            dir.forEach(( dir_file )=>{
-                dir_file_name = dir_file.substring(0,dir_file.lastIndexOf('.')); 
-                dir_file_last = dir_file.split(".").pop();
-                if(dir_file_last === 'html'){
-                    titles.push({
-                        src:path.join('dist',dir_file),
-                        title:dir_file_name
-                    })
-                }
-            })
-        }
-    };
-    // console.log("catalogue", JSON.stringify(titles))
-    fs.writeFile(pwd + '/src/catalogue.json', JSON.stringify(titles), {  }, function(e){
-        console.log('目录文件已生成')
-    })
-},1000)
+
+
+
 
 
 

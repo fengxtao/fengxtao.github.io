@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
+  "scripts": { 
     "test": "echo \"Error: no test specified\" && exit 1",
-    "transformMD": "node scripts/transformMD/start.js",
+    "transformMD": "node scripts/transformMD/start.js && sleep 3 && node scripts/transformMD/adjustStruct.js",
     "dev": "webpack-dev-server --open --config webpack.config.dev.js --mode development",
     "nodeDev": " node scripts/start",
     "start": "npm run transformMD &&  npm run nodeDev",
