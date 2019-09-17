@@ -1,13 +1,11 @@
 const fs = require('fs')
 const execSync = require('child_process').execSync;
 const path = require('path')
-
-const distPath = process.cwd()+'/preview';
 const pwd = process.cwd();
 
     //删除dist目录
     if( fs.existsSync( process.cwd()+'/dist' ) ){
-        execSync(`rm -r ${distPath}`,function(error,stdout,stderr){
+        execSync(`rm -rf ${process.cwd()}/dist`,function(error,stdout,stderr){
             if (error) {
             console.error(`执行的错误: ${error}`);
             return;
@@ -16,8 +14,8 @@ const pwd = process.cwd();
             console.log(`stderr: ${stderr}`);
         });
     }
-    //重命名 preview 为dist
-    fs.rename(distPath, 'dist', function(err) {
+    // //重命名 preview 为dist
+    fs.rename( process.cwd()+'/preview', 'dist', function(err) {
         console.log('md-html 产出到dist:err',err)
         if (!err) {
         console.log("md-html 产出到dist");
@@ -42,7 +40,7 @@ const pwd = process.cwd();
             })
         }
     };
-    // console.log("catalogue", JSON.stringify(titles))
+    console.log("catalogue", JSON.stringify(titles))
     fs.writeFile(pwd + '/src/catalogue.json', JSON.stringify(titles), {  }, function(e){
         console.log('目录文件已生成')
     })

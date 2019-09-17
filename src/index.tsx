@@ -9,7 +9,6 @@ console.log(catalogue,'catalogue')
 
 interface catalogueEl { src:string ; title :string };
 interface HelloProps { compiler: string; framework: string; catalogue:Array<any>};
-
 // 'HelloProps' describes the shape of props.
 // State is never set so we use the '{}' type.
 let imgContainer:any;

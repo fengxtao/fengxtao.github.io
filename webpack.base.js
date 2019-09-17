@@ -51,12 +51,21 @@ module.exports={
                 }
             }]
             },
+             {
+                test: /\.js$/,
+                use: [{
+                    loader:'babel-loader',
+                    options:{
+
+                    }
+                }],
+            },
             // 第三方的 soucemap 加载
-      {
-        test: /\.js$/,
-        use: ["source-map-loader"],
-        enforce: "pre"
-      },
+            // {
+            //     test: /\.js$/,
+            //     use: ["source-map-loader"],
+            //     enforce: "pre"
+            // },
             // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
             { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
 
@@ -68,7 +77,7 @@ module.exports={
     plugins:[
         new ExtractTextPlugin('[name].style.[hash].css'),
         new webpack.DefinePlugin( {
-            // "__TITLE__":JSON.stringify(titles)
+            "__TITLE__":JSON.stringify('titles')
         } )
     ],
     resolve: {

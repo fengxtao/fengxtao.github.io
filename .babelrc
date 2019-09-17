@@ -1,0 +1,15 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env", {
+        "modules": false,
+        "targets": {
+          "browsers": ["last 2 Chrome versions", "IE >= 9"]
+        }
+      }
+    ],
+    // "module:react",
+    "@babel/react"
+  ],
+  "plugins":[]
+}
