@@ -15,7 +15,7 @@ const pwd = process.cwd();
         });
     }
     // //重命名 preview 为dist
-    fs.rename( process.cwd()+'/preview', 'dist', function(err) {
+    fs.renameSync( process.cwd()+'/preview', 'dist', function(err) {
         console.log('md-html 产出到dist:err',err)
         if (!err) {
         console.log("md-html 产出到dist");
@@ -28,6 +28,7 @@ const pwd = process.cwd();
         let stats = fs.statSync( htmlFilesPath )
         if( stats.isDirectory() ){
             var dir=fs.readdirSync(htmlFilesPath);
+            console.log("dir==:",dir)
             dir.forEach(( dir_file )=>{
                 dir_file_name = dir_file.substring(0,dir_file.lastIndexOf('.')); 
                 dir_file_last = dir_file.split(".").pop();
