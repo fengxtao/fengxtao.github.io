@@ -42,6 +42,6 @@ const pwd = process.cwd();
         }
     };
     console.log("catalogue", JSON.stringify(titles))
-    fs.writeFile(pwd + '/src/catalogue.json', JSON.stringify(titles), {  }, function(e){
+    fs.writeFile(pwd + '/src/catalogue.json', JSON.stringify(titles,null,4), {  }, function(e){
         console.log('目录文件已生成')
     })
