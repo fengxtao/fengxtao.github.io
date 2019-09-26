@@ -37,8 +37,18 @@ if( fs.existsSync( distPath ) ){
         console.log(`stderr: ${stderr}`);
     });
 }
-//sourceFileConfig 创建md 为html
-const sourceFileConfig=require('./source.file.config.js')
+
+//创建html
+let sourceFileConfig = [];
+const sourceFilePath = pwd+'/src/source_files';
+if( fs.existsSync(sourceFilePath) ){
+    let stat = fs.statSync( sourceFilePath );
+    if( stat.isDirectory() ){
+        let dir = fs.readdirSync( sourceFilePath );
+        sourceFileConfig=dir;
+    }
+}
+console.log('sourceFileConfig:',sourceFileConfig)
 sourceFileConfig.forEach((file)=>{
     const fileNamePath=srcPath+'/'+file
     if( !fs.existsSync( fileNamePath ) ) return;

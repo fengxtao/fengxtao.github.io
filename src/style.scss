@@ -33,16 +33,32 @@ a{text-decoration:none}
     height: 100%;
     position: absolute;
     top:0;
+    z-index: -1;
   }
   .head{
+    padding: 20px 100px;
     height: 100px;
-    // background: green;
+    box-sizing: border-box;
+    // background: #666666;
+    // border-bottom: 2px greenyellow solid;
     flex-grow: 0;
+    input{
+      background: transparent;
+      outline: none;
+      border: none;
+      width:200px;
+      height: 50px;
+      line-height: 50px;
+      font-size: 35px;
+      // background:red;
+      border-bottom: 2px green solid;
+    }
   }
   .catalogue-container{
     flex-grow: 1;
     padding: 20px 100px;
     // background: hotpink;
+    overflow: auto;
     a{
       color:white;
     }

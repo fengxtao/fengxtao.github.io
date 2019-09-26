@@ -27,8 +27,7 @@ const options = {
     contentBase: path.resolve(__dirname, 'dist'),
     hot: true,
     inline: true,
-    // port: 3000,
-    host: 'localhost:3000',
+    host: HOST,
     disableHostCheck: true,
     open:true
 };
@@ -46,7 +45,7 @@ choosePort(HOST,DEFAULT_PORT).then((port)=>{
         clearConsole();
       }
       console.log(chalk.cyan('Starting the development server...\n'));
-      openBrowser('http://'+HOST+':'+port);
+      // openBrowser('http://'+HOST+':'+port);
      
     });
 })
