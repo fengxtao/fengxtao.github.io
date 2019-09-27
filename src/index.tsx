@@ -33,7 +33,7 @@ class Hello extends React.Component<HelloProps, {catalogue:Array<any>}> {
     componentDidMount(){
        let bgImg = document.createElement("img");
        try{
-        bgImg.setAttribute("src",'./SAVE_20190920_140911.jpg');
+        bgImg.setAttribute("src",'./outdist/SAVE_20190920_140911.jpg');
         bgImg.style.width="100%";
         bgImg.style.height="100%";
         bgImg.onload=function(){

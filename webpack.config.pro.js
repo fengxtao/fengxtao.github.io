@@ -12,25 +12,7 @@ const baseConfig=require('./webpack.base');
 let proConfig={
     mode:'production',
     module:{
-        // rules:[
-        //     {
-        //         test: /\.(png|svg|jpg|gif)$/,
-        //         use: [{
-        //             "loader":'file-loader',
-        //             options:{
-        //                 name:"[name].[ext]",
-        //                 outputPath:'',
-        //                 publicPath:''
-        //             }
-        //         }]
-        //     },
-        // ]
     },
-	// output: {
-    //     filename: '[name]_main_[hash].js',
-    //     path: path.resolve(baseUrl,'dist'),
-    //     chunkFilename: '[name]_chunk_[chunkhash].js',
-    // },
 	plugins: [
 		// new clearWebpackPlugin(['dist'],{root: baseUrl}),
 		new htmlWebpackPlugin({
