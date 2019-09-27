@@ -16,7 +16,7 @@ let devConfig={
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),//代码模块热替换
     new htmlWebpackPlugin({
-      filename: path.join(baseUrl,'dist/index.html'),
+      filename: path.join(baseUrl,'outdist/index.html'),
       template: path.join(baseUrl,'src/index.html'),
       inject: 'body',
       chunks:['app']

@@ -1,0 +1,178 @@
+<html>
+  <head>
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>i5ting_ztree_toc:nodeJS  6</title>
+		<link href="toc/style/github-bf51422f4bb36427d391e4b75a1daa083c2d840e.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/style/github2-d731afd4f624c99a4b19ad69f3083cd6d02b81d5.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css"/>
+	  <style>
+		pre {
+		    counter-reset: line-numbering;
+		    border: solid 1px #d9d9d9;
+		    border-radius: 0;
+		    background: #fff;
+		    padding: 0;
+		    line-height: 23px;
+		    margin-bottom: 30px;
+		    white-space: pre;
+		    overflow-x: auto;
+		    word-break: inherit;
+		    word-wrap: inherit;
+		}
+
+		pre a::before {
+		  content: counter(line-numbering);
+		  counter-increment: line-numbering;
+		  padding-right: 1em; /* space after numbers */
+		  width: 25px;
+		  text-align: right;
+		  opacity: 0.7;
+		  display: inline-block;
+		  color: #aaa;
+		  background: #eee;
+		  margin-right: 16px;
+		  padding: 2px 10px;
+		  font-size: 13px;
+		  -webkit-touch-callout: none;
+		  -webkit-user-select: none;
+		  -khtml-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+
+		pre a:first-of-type::before {
+		  padding-top: 10px;
+		}
+
+		pre a:last-of-type::before {
+		  padding-bottom: 10px;
+		}
+
+		pre a:only-of-type::before {
+		  padding: 10px;
+		}
+
+		.highlight { background-color: #ffffcc } /* RIGHT */
+		</style>
+  </head>
+  <body>
+	  <div>
+				<div style='width:25%;'>
+						<ul id="tree" class="ztree" style='width:100%'>
+
+						</ul>
+				</div>
+        <div id='readme' style='width:70%;margin-left:20%;'>
+          	<article class='markdown-body'>
+            	<h4 id="nodejs-mongodb">nodejs 连接mongodb</h4>
+<pre><code>var mongodb = require(&#39;mongodb&#39;)
+
+// 创建数据库服务的链接
+var server = new mongodb.Server(
+  &#39;localhost&#39;,
+  27017,
+  { auto_reconnect: true}
+)
+
+// 创建数据的连接
+var db = new mongodb.Db(
+  &#39;movies&#39;,
+  server,
+  { safe: true }
+)
+
+// 测试数据库连接
+db.open(function(err, db){
+  if (err) {
+    console.log(&#39;log-&#39; + err)
+  } else {
+    console.log(&#39;log-connect mongodb success!&#39;)
+    db.collection(&#39;movie&#39;, {safe: true}, function(err, conn){
+      if (err) {
+        console.log(err)
+      } else {
+        conn.find({}, {title:1, year:1, _id:0}).limit(3).skip(3).toArray(function(err, res){
+          if(!err) {
+            res.forEach(function(value){
+              console.log(value.title)
+            })
+          }
+        })
+      }
+    })
+  }
+})
+</code></pre><h3 id="-express">什么是express</h3>
+<p>基于 Node.js 平台，快速、开放、极简的 web 开发框架。</p>
+<hr>
+<h3 id="-express">安装express</h3>
+<p>全局安装express：</p>
+<p>express -g    </p>
+<p>express-generator -g   (做兼容)</p>
+<hr>
+<h3 id="-express-">创建一个express模板：</h3>
+<p>express -e express</p>
+<p>进入项目目录后下载依赖工具和包</p>
+<p>cd express-&gt;npm install</p>
+<p>body-parser 解析前端提交的数据</p>
+<p>cookie-parser 解析cookie</p>
+<p>debug 显示调试信息，可以代替console.log</p>
+<p>ejs express模板，渲染页面</p>
+<p>morgan 日志，在控制台显示request数据</p>
+<p>server-favicon 解决favicon.ico的问题</p>
+<p>运行项目</p>
+<p>npm run start</p>
+<hr>
+<h3 id="-">解析模板文件</h3>
+<p>详细请看视频</p>
+<hr>
+<h3 id="ejs">EJS</h3>
+<h4 id="-ejs-">什么是ejs：</h4>
+<p>ejs是一个简单高效的模板语言，通过数据和模板，可以生成html标记文本，可以说ejs是一个js库，ejs可以运行在客户端和服务器端，客户端安装直接用引入文件即可，服务端要用npm包安装</p>
+<h4 id="ejs-">ejs的特点：</h4>
+<ul>
+<li>快速编译和渲染</li>
+<li>简单的模板标签</li>
+<li>自定义标记分隔符</li>
+<li>支持文本包含</li>
+<li>支持浏览器端和服务器端</li>
+<li>模板静态缓存</li>
+<li>支持express视图系统</li>
+</ul>
+<h4 id="ejs-">ejs的成员函数</h4>
+<p>render(str,data,[,option]),直接渲染并生成html</p>
+<p>str：要解析的字符串模板</p>
+<p>data：数据</p>
+<p>options：配置选项</p>
+<h4 id="ejs-">ejs的常用标签</h4>
+<ol>
+<li>&lt;%  %&gt; 流程控制标签 可以在里面写写原生js</li>
+<li>&lt;%=  %&gt; 输出标签（原文输出html标签）</li>
+<li>&lt;%-  %&gt; 输出标签 （html会被浏览器解析）</li>
+<li>&lt;%#  %&gt; 注释标签</li>
+<li>%  对标记进行转义</li>
+<li>&lt;% include(&#39;a.ejs&#39;) %&gt; 可以在一个ejs中引入另一个ejs</li>
+</ol>
+
+          	</article>
+        </div>
+		</div>
+  </body>
+</html>
+<script type="text/javascript" src="toc/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="toc/js/ztree_toc.js"></script>
+<script type="text/javascript" src="toc_conf.js"></script>
+
+<SCRIPT type="text/javascript" >
+<!--
+$(document).ready(function(){
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+    
+    var conf = eval(jquery_ztree_toc_opts);
+		$('#tree').ztree_toc(conf);
+});
+//-->
+</SCRIPT>

@@ -4,8 +4,8 @@ const path = require('path')
 const pwd = process.cwd();
 
     //删除dist目录
-    if( fs.existsSync( process.cwd()+'/dist' ) ){
-        execSync(`rm -rf ${process.cwd()}/dist`,function(error,stdout,stderr){
+    if( fs.existsSync( process.cwd()+'/outdist' ) ){
+        execSync(`rm -rf ${process.cwd()}/outdist`,function(error,stdout,stderr){
             if (error) {
             console.error(`执行的错误: ${error}`);
             return;
@@ -15,7 +15,7 @@ const pwd = process.cwd();
         });
     }
     // //重命名 preview 为dist
-    fs.renameSync( process.cwd()+'/preview', 'dist', function(err) {
+    fs.renameSync( process.cwd()+'/preview', 'outdist', function(err) {
         console.log('md-html 产出到dist:err',err)
         if (!err) {
         console.log("md-html 产出到dist");
@@ -23,7 +23,7 @@ const pwd = process.cwd();
     })
 
     let titles=[];
-    const htmlFilesPath=pwd+'/dist';
+    const htmlFilesPath=pwd+'/outdist';
     if( fs.existsSync( htmlFilesPath ) ) {
         let stats = fs.statSync( htmlFilesPath )
         if( stats.isDirectory() ){
@@ -34,7 +34,7 @@ const pwd = process.cwd();
                 dir_file_last = dir_file.split(".").pop();
                 if(dir_file_last === 'html'){
                     titles.push({
-                        src:path.join('dist',dir_file),
+                        src:path.join('outdist',dir_file),
                         title:dir_file_name
                     })
                 }

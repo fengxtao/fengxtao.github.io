@@ -1,0 +1,240 @@
+<html>
+  <head>
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>i5ting_ztree_toc:nodeJS  1</title>
+		<link href="toc/style/github-bf51422f4bb36427d391e4b75a1daa083c2d840e.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/style/github2-d731afd4f624c99a4b19ad69f3083cd6d02b81d5.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css"/>
+	  <style>
+		pre {
+		    counter-reset: line-numbering;
+		    border: solid 1px #d9d9d9;
+		    border-radius: 0;
+		    background: #fff;
+		    padding: 0;
+		    line-height: 23px;
+		    margin-bottom: 30px;
+		    white-space: pre;
+		    overflow-x: auto;
+		    word-break: inherit;
+		    word-wrap: inherit;
+		}
+
+		pre a::before {
+		  content: counter(line-numbering);
+		  counter-increment: line-numbering;
+		  padding-right: 1em; /* space after numbers */
+		  width: 25px;
+		  text-align: right;
+		  opacity: 0.7;
+		  display: inline-block;
+		  color: #aaa;
+		  background: #eee;
+		  margin-right: 16px;
+		  padding: 2px 10px;
+		  font-size: 13px;
+		  -webkit-touch-callout: none;
+		  -webkit-user-select: none;
+		  -khtml-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+
+		pre a:first-of-type::before {
+		  padding-top: 10px;
+		}
+
+		pre a:last-of-type::before {
+		  padding-bottom: 10px;
+		}
+
+		pre a:only-of-type::before {
+		  padding: 10px;
+		}
+
+		.highlight { background-color: #ffffcc } /* RIGHT */
+		</style>
+  </head>
+  <body>
+	  <div>
+				<div style='width:25%;'>
+						<ul id="tree" class="ztree" style='width:100%'>
+
+						</ul>
+				</div>
+        <div id='readme' style='width:70%;margin-left:20%;'>
+          	<article class='markdown-body'>
+            	<h3 id="-nodejs">什么是nodeJs</h3>
+<p>Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。Node.js 使用了一个事件驱动、非阻塞式 I/O 的模型，使其轻量又高效。</p>
+<p>node是使用C++编写的基于V8引擎的JS运行环境，同时提供了很多基于ECMAScript的扩展对象。</p>
+<p>Node.js 的包管理器 npm，成为世界上最大的开放源代码的生态系统。</p>
+<p>Node.js 可以解析JS代码（没有浏览器安全级别的限制）提供很多系统级别的API，如：</p>
+<ul>
+<li>文件的读写</li>
+<li>进程的管理</li>
+<li>网络通信</li>
+<li>...</li>
+</ul>
+<p>nodejs是基于ECMAScript语言开发的服务端语言，可以编写独立的服务端应用，也可以向客户端提供Web内容，无需借助与任何Web服务器（apache）可以去连接文件系统，还能操作数据库。</p>
+<hr>
+<h3 id="-nodejs">为什么要学习nodeJs</h3>
+<p>对于咱们来说，一种语言通吃前后端，并且可以增加咱们的竞争力</p>
+<p>==nodejs适合高并发、I/O密集型，可伸缩的网路应用，数据写入读取的应用比较好==</p>
+<p>==nodejs不适合CPU密集型的应用，各种计算的就不太适合==</p>
+<hr>
+<h3 id="nodejs-">nodeJs 学习网站</h3>
+<p>1.<a href="https://nodejs.org/">nodejs官网</a></p>
+<p>我们可以在这里下载node，查看api，版本更新日志等动态</p>
+<p>2.<a href="https://www.npmjs.com/">npm官网</a></p>
+<p>我们可以在这这里查找很多很多的node模块去学习</p>
+<p>3.<a href="https://github.com/">github官网</a></p>
+<p>4.<a href="http://stackoverflow.com/">stackoverflow</a></p>
+<hr>
+<h3 id="nodejs-">nodeJs安装</h3>
+<p>nodeJs版本：</p>
+<p>LTS指的是long time support 也就是长期支持版本，推荐大家安装</p>
+<p>Current是现在最新的版本。</p>
+<p>一般来说，偶数位为稳定版本，奇数位为非稳定版本</p>
+<hr>
+<h3 id="-node-">搭建第一个node服务器</h3>
+<p>我们在项目目录下建立一个server.js文件：</p>
+<pre><code>const http=require(&quot;http&quot;);
+
+const hostname=&quot;127.0.0.1&quot;;
+const port=1234;
+
+const server=http.createServer((req,res)=&gt;{
+    res.statusCode=200;
+    res.setHeader(&quot;content-Type&quot;,&#39;text/plain&#39;);
+    res.end(&quot;Hello,world\n&quot;)
+});
+
+server.listen(port,hostname,()=&gt;{
+    console.log(`Server running at http://${hostname}:${port}/`);
+})
+
+</code></pre><p>在控制台里输入node server+回车，这时，我们的服务就启动了</p>
+<p>这只是一个简单的例子，里面的代码我们后面都会详细再介绍</p>
+<hr>
+<h3 id="-">命令行 的体验</h3>
+<p>这次我们尝试在命令行来运行我们的js代码</p>
+<p>chrome浏览器的V8引擎console控制台里可以运行js代码</p>
+<p>在命令行中输入node后回车，大家会发现这个时候我们的控制台就像chrome浏览器里一样可以运行js代码了，其实这里就是node离的V8引擎解析js代码的情况。</p>
+<p>但是现在有这样一个情况，浏览器段有BOM和DOM对象，在node里是没有的，也就是没有window等相关的对象。</p>
+<p>同样在node端有process等全局对象，浏览器段却没有</p>
+<hr>
+<h3 id="hello-world">hello world</h3>
+<p>现在我们来创建一个hello.js文件</p>
+<p>在这里我们换一种写法来搭建服务器，也来返回helloworld，并且呢，我们来处理一个小小的问题，就是ico的问题</p>
+<pre><code>var http=require(&#39;http&#39;);
+
+http.createServer(function(req,res){
+    res.writeHead(200,{&#39;content-Type&#39;:&#39;text/html;charset=utf-8&#39;});
+
+//    console.log(&#39;hello world&#39;);
+//    res.write(&#39;hello world&#39;);
+//    res.end();
+
+    console.log(req.url)
+
+    if(req.url!==&#39;/favicon.ico&#39;){
+        console.log(&#39;hello world&#39;);
+        res.write(&#39;hello world&#39;);
+        res.end();
+    }
+}).listen(3000);
+console.log(&#39;server is running&#39;);
+
+
+</code></pre><hr>
+<h3 id="-">模块和包管理工具</h3>
+<p>现在我们想做这样一个事情，就是封装一个专门在页面中输入hello——world的函数，写在我们的服务模块上的话会影响我们的编程思路，因为会比较乱，那么我们怎么办呢？</p>
+<p>其实这样的问题一直存在于我们的编程中，我们通常也就是分成单个的js文件来引入，但是这样的话又要考虑命名冲突、依赖关系等等的问题</p>
+<p>nodeJs让我们使用一套CommonJs规范来解决这些问题：</p>
+<p>按照规范来定义模块，暴露接口，引用模块</p>
+<p>在node里的很多工具、包也都是在使用这个规范，也就是说学习这个规范是很有必要的。</p>
+<p>我们可以使用npm这个工具来安装很多很多的包、工具，通过npm install方法来安装，安装好的内容会放到node_modules文件夹里</p>
+<p>下面我们来尝试一下，</p>
+<p>这里是我们的模块：</p>
+<pre><code>//定义模块
+ var util={};
+
+ util.sayHello=function(){
+     return &#39;hello nodeJs&#39;
+ }
+
+ util.add=function(x,y){
+     return x+y;
+ }
+//暴露接口
+module.exports=util;
+</code></pre><p>这里是我们使用模块的地方：</p>
+<pre><code>var http=require(&#39;http&#39;);
+var util=require(&#39;./4.util&#39;);//引入模块
+
+http.createServer(function(req,res){
+    res.writeHead(200,{&#39;content-Type&#39;:&#39;text/html;charset=utf-8&#39;});    
+    if(req.url!==&#39;/favicon.ico&#39;){
+        res.write(util.sayHello()+&#39;&lt;br/&gt;&#39;);//使用模块
+        res.write(util.add(1,2)+&#39;&lt;br/&gt;&#39;);
+        res.end();
+    }
+}).listen(3000);
+</code></pre><p>有一个需要注意的地方，就是reswrite的时候需放入的是字符串</p>
+<p>require引入模块的时候，node内置的模块我们直接写模块名，自定义模块的话我们要写路径，需要引入包的时候（用npm下载的，或者在node_modules文件夹里的），我们也直接写模块名就好。</p>
+<p>使用module.exports暴露接口的时候我们可以暴露任何数据类型的任何东西，需要注意的是，不暴露的数据是模块内部数据，不会在引入模块的文件里使用。</p>
+<p>module.exports其实是直接暴露出一个module的实例，并将实例赋值：</p>
+<pre><code>module.exports=util;
+</code></pre><p>我们还可以这么做：</p>
+<pre><code>exports.sayHello=util.sayHello;
+exports.add=util.add;
+</code></pre><p>这样的话我们并没有重写module的实例，只是为他添加了几个方法；</p>
+<p>在引入模块的时候，可能我们的模块有很多方法，我们也可以单个引入其中的几个：</p>
+<pre><code>
+var sayHello=require(&#39;./4.util&#39;).sayHello;
+var add=require(&#39;./4.util&#39;).add;
+
+</code></pre><p>这就是Commonjs的使用细节，希望大家都要记住哟。</p>
+<hr>
+<h3 id="npm-">NPM使用入门</h3>
+<p>npm 就是node package manager node的包管理工具</p>
+<p>我们通过npm install 模块 来安装模块，缩写：npm i 模块,注意，低版本的node可能需要npm init先来创建一个package.json文件，这也是我推荐的</p>
+<p>卸载的话就是unintsall，全局安装（大多是工具，例如gulp等） -g（全写上是--global）</p>
+<p>在在本地（当前目录上）安装（大多是包）不需要加-g</p>
+<p>使用npm list 可以查看现在安装了的一些东西,npm list | grep 模块 可以查看其中某个模块的信息</p>
+<p>使用npm info 模块  可以查看模块的信息及历史版本</p>
+<p>使用npm install 模块@版本号 可以来安装对应的版本的模块包，原包就会被覆盖</p>
+<h4 id="package-json-">package.json相关：</h4>
+<p>我们可以通过npm init来创建package.json文件，这个文件可以来管理我们的项目依赖的包的信息</p>
+<p>devDependencies是开发依赖，也就是只在开发的时候使用的包 --save-dev （-D），depedencies是我们打包的时候依然使用的包--save （-S）</p>
+<p>这个文件还有一个好处，就是使我们的项目有辨识性，我们在某些情况下，需要将项目提交给某个地方或者共享给某人，这个时候我们不需要提交node——modules文件夹，只需要在那个地方执行npm install 就可以安装package.json里所有的包，使我们的项目可以继续运行</p>
+<h4 id="-">源相关：</h4>
+<p>我们可以全局安装nrm这个工具来管理我们的源（就是下载地址），</p>
+<p>nrm ls可以查看我们可以使用的源</p>
+<p>nrm test可以来测试我们可以使用的源的速度</p>
+<p>nrm use 源   可以来切换我们使用的源.</p>
+<h4 id="-">清楚缓存</h4>
+<p>有的时候我们因为下载报错或者某种原因，需要重新下载的时候，结果依然报错，我们排除掉网络等原因后，可以尝试通过执行npm cache clear 来清除掉npm的缓存。</p>
+
+          	</article>
+        </div>
+		</div>
+  </body>
+</html>
+<script type="text/javascript" src="toc/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="toc/js/ztree_toc.js"></script>
+<script type="text/javascript" src="toc_conf.js"></script>
+
+<SCRIPT type="text/javascript" >
+<!--
+$(document).ready(function(){
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+    
+    var conf = eval(jquery_ztree_toc_opts);
+		$('#tree').ztree_toc(conf);
+});
+//-->
+</SCRIPT>

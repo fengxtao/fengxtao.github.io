@@ -1,0 +1,251 @@
+<html>
+  <head>
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>i5ting_ztree_toc:nodeJS  8</title>
+		<link href="toc/style/github-bf51422f4bb36427d391e4b75a1daa083c2d840e.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/style/github2-d731afd4f624c99a4b19ad69f3083cd6d02b81d5.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css"/>
+	  <style>
+		pre {
+		    counter-reset: line-numbering;
+		    border: solid 1px #d9d9d9;
+		    border-radius: 0;
+		    background: #fff;
+		    padding: 0;
+		    line-height: 23px;
+		    margin-bottom: 30px;
+		    white-space: pre;
+		    overflow-x: auto;
+		    word-break: inherit;
+		    word-wrap: inherit;
+		}
+
+		pre a::before {
+		  content: counter(line-numbering);
+		  counter-increment: line-numbering;
+		  padding-right: 1em; /* space after numbers */
+		  width: 25px;
+		  text-align: right;
+		  opacity: 0.7;
+		  display: inline-block;
+		  color: #aaa;
+		  background: #eee;
+		  margin-right: 16px;
+		  padding: 2px 10px;
+		  font-size: 13px;
+		  -webkit-touch-callout: none;
+		  -webkit-user-select: none;
+		  -khtml-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+
+		pre a:first-of-type::before {
+		  padding-top: 10px;
+		}
+
+		pre a:last-of-type::before {
+		  padding-bottom: 10px;
+		}
+
+		pre a:only-of-type::before {
+		  padding: 10px;
+		}
+
+		.highlight { background-color: #ffffcc } /* RIGHT */
+		</style>
+  </head>
+  <body>
+	  <div>
+				<div style='width:25%;'>
+						<ul id="tree" class="ztree" style='width:100%'>
+
+						</ul>
+				</div>
+        <div id='readme' style='width:70%;margin-left:20%;'>
+          	<article class='markdown-body'>
+            	<h3 id="-">评论功能-添加评论</h3>
+<h4 id="-comment-">设置comment路由</h4>
+<p>同登陆等路由的设置，但是我们comment路由是设置的一级路由</p>
+<p>app.js：</p>
+<pre><code>var comment=require(&#39;./routes/comment&#39;);
+app.use(&#39;/comment&#39;,comment);
+</code></pre><h4 id="-comment-ejs-">创建comment.ejs的模板</h4>
+<p>模板里的表单提交到/comemnt/submit下，post方法：</p>
+<pre><code>&lt;form action=&quot;/comment/submit&quot; method=&quot;post&quot; class=&quot;col-xs-12 col-sm-6 col-sm-offset-3&quot;&gt;
+   &lt;div class=&quot;form-group&quot;&gt;
+       &lt;label for=&quot;title&quot;&gt;标题：&lt;/label&gt;
+       &lt;input type=&quot;text&quot; name=&quot;title&quot; id=&quot;title&quot; class=&quot;form-control&quot; /&gt;
+   &lt;/div&gt;
+   &lt;div class=&quot;form-group&quot;&gt;
+       &lt;label for=&quot;content&quot;&gt;内容：&lt;/label&gt;
+       &lt;textarea type=&quot;text&quot; name=&quot;content&quot; id=&quot;content&quot; class=&quot;form-control&quot; rows=&quot;10&quot;&gt;&lt;/textarea&gt;
+   &lt;/div&gt;
+   &lt;div class=&quot;form-group&quot;&gt;
+       &lt;button type=&quot;submit&quot; class=&quot;btn btn-success&quot;&gt;提交&lt;/button&gt;
+       &lt;button type=&quot;reset&quot; class=&quot;btn btn-default&quot;&gt;重置&lt;/button&gt;
+   &lt;/div&gt;
+&lt;/form&gt;
+</code></pre><h4 id="-comment-submit">设置提交数据的路由/comment/submit</h4>
+<p>comment.js:</p>
+<p>路由设置：</p>
+<p>插入评论成功后跳转到评论列表</p>
+<pre><code>router.post(&#39;/submit&#39;,function(req,res){
+    var username=req.session.username||&#39;&#39;;
+    //登陆判断
+    if(username){
+        //要入库的信息
+        var info={
+            username:username,
+            title:req.body[&#39;title&#39;],
+            content:req.body[&#39;content&#39;]
+        }
+        //连接数据库
+        MongoClient.connect(DB_CONN_STR,function(err,db){
+              if(err){
+                  console.log(err);
+              }else{
+                  insertData(info,db,function(results){
+                      //插入数据后，跳转到评论列表
+                      res.redirect(&#39;/comment/list&#39;);
+                      db.close()
+                  })
+
+              }
+          })
+    }else{
+        res.send(&#39;&lt;script&gt;alert(&quot;登陆信息已过期，请重新登陆&quot;);location.href=&quot;/login&quot;&lt;/script&gt;&#39;)
+    }
+
+})
+</code></pre><p>插入数据的函数：</p>
+<p>使用了async第三方模块来管理异步函数的依赖情况</p>
+<pre><code>var insertData=function(info,db,callback){
+    //获取存放评论的集合
+    var conn=db.collection(&#39;comment&#39;);
+    //获取存放评论id的集合
+    var ids=db.collection(&#39;ids&#39;);
+
+    //使用async模块来管理异步函数之间的相互依赖
+//    {name:&#39;comment&#39;,id:0}
+    async.waterfall([
+        function(nextFun){//获得ids里的id并++
+            ids.findAndModify(
+                {name:&#39;comment&#39;},
+                [[&quot;_id&quot;,&quot;desc&quot;]],
+                {$inc:{id:1}},
+                function(err,results){
+                    var new_id=results.value.id;
+                    nextFun(null,new_id)
+                }
+            )
+        },
+        function(id,finishFun){//给comment里插入数据            
+            var data=[{title:info.title,content:info.content,username:info.username,uid:id}];
+            conn.insert(data,function(err,results){
+                if(err){console.log(err)}else{
+                    finishFun(null,results)
+                }
+            })            
+        }
+    ],function(err,results){
+        callback(results)
+    })
+}
+</code></pre><hr>
+<h3 id="-">评论列表</h3>
+<h4 id="-">评论列表的显示</h4>
+<p>1.配置路由及模板，同其他</p>
+<p>路由：</p>
+<pre><code>//评论列表
+router.get(&#39;/list&#39;,function(req,res){
+    var username=req.session.username||&#39;&#39;;
+    //登陆判断
+    if(username){
+        //要入库的信息
+
+        var pageInfo={
+            pageNum:req.query[&#39;pageNum&#39;]||1,//第几页
+            pageSize:req.query[&#39;pageSize&#39;]||10,//一页有多少
+            count:0,//当前查询多少
+            totalPage:0//总页数
+        }
+
+
+        MongoClient.connect(DB_CONN_STR,function(err,db){
+              if(err){
+                  console.log(err);
+              }else{
+                  findData(pageInfo,db,function(results){
+                      res.render(&#39;list&#39;,{
+                        title: &#39;Express + MongoDB&#39;,
+                        comments:results[1]
+                    })
+                  })
+
+              }
+        })
+
+    }else{
+        res.send(&#39;&lt;script&gt;alert(&quot;登陆信息已过期，请重新登陆&quot;);location.href=&quot;/login&quot;&lt;/script&gt;&#39;)
+    }
+})
+</code></pre><p>获取数据的函数：</p>
+<pre><code>function findData(pageInfo,db,callback){
+    var conn=db.collection(&#39;comment&#39;);
+    async.series([
+        function(nextFun){//获取到所有的数据，将pageInfo进行设置
+            conn.find({}).toArray(function(err,results){            
+                if(err){console.log(err)}else{
+                    pageInfo.totalPage=Math.ceil(results.length/pageInfo.pageSize);
+                    pageInfo.count=results.length;
+                    pageInfo.pageNum=pageInfo.pageNum&lt;=0?1:pageInfo.pageNum;
+                    pageInfo.pageNum=pageInfo.pageNum&gt;pageInfo.totalPage?pageInfo.totalPage:pageInfo.pageNum;
+                    nextFun(null,&#39;&#39;);
+                }
+            })
+        },
+        function(finishFun){//从全部数据里找出对应的数据
+            conn.find({}).sort({_id:-1}).skip((pageInfo.pageNum-1)*pageInfo.pageSize).limit(pageInfo.pageSize).toArray(function(err,results){
+                finishFun(null,results)
+            })
+        }
+    ],function(err,results){
+        callback(results)
+    })
+
+}
+</code></pre><p>ejs模板内容：</p>
+<pre><code>&lt;% comments.forEach(function(comment,index){ %&gt;
+
+    &lt;tr&gt;
+        &lt;td&gt;&lt;%= (index+1) %&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;%= comment.title %&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;%= comment.content %&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;%= comment.username %&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+
+&lt;% }) %&gt;
+</code></pre>
+          	</article>
+        </div>
+		</div>
+  </body>
+</html>
+<script type="text/javascript" src="toc/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="toc/js/ztree_toc.js"></script>
+<script type="text/javascript" src="toc_conf.js"></script>
+
+<SCRIPT type="text/javascript" >
+<!--
+$(document).ready(function(){
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+    
+    var conf = eval(jquery_ztree_toc_opts);
+		$('#tree').ztree_toc(conf);
+});
+//-->
+</SCRIPT>

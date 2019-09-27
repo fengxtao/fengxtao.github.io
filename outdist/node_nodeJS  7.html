@@ -1,0 +1,258 @@
+<html>
+  <head>
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>i5ting_ztree_toc:nodeJS  7</title>
+		<link href="toc/style/github-bf51422f4bb36427d391e4b75a1daa083c2d840e.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/style/github2-d731afd4f624c99a4b19ad69f3083cd6d02b81d5.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css"/>
+	  <style>
+		pre {
+		    counter-reset: line-numbering;
+		    border: solid 1px #d9d9d9;
+		    border-radius: 0;
+		    background: #fff;
+		    padding: 0;
+		    line-height: 23px;
+		    margin-bottom: 30px;
+		    white-space: pre;
+		    overflow-x: auto;
+		    word-break: inherit;
+		    word-wrap: inherit;
+		}
+
+		pre a::before {
+		  content: counter(line-numbering);
+		  counter-increment: line-numbering;
+		  padding-right: 1em; /* space after numbers */
+		  width: 25px;
+		  text-align: right;
+		  opacity: 0.7;
+		  display: inline-block;
+		  color: #aaa;
+		  background: #eee;
+		  margin-right: 16px;
+		  padding: 2px 10px;
+		  font-size: 13px;
+		  -webkit-touch-callout: none;
+		  -webkit-user-select: none;
+		  -khtml-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+
+		pre a:first-of-type::before {
+		  padding-top: 10px;
+		}
+
+		pre a:last-of-type::before {
+		  padding-bottom: 10px;
+		}
+
+		pre a:only-of-type::before {
+		  padding: 10px;
+		}
+
+		.highlight { background-color: #ffffcc } /* RIGHT */
+		</style>
+  </head>
+  <body>
+	  <div>
+				<div style='width:25%;'>
+						<ul id="tree" class="ztree" style='width:100%'>
+
+						</ul>
+				</div>
+        <div id='readme' style='width:70%;margin-left:20%;'>
+          	<article class='markdown-body'>
+            	<h3 id="express-">express 项目实战</h3>
+<h4 id="-">注册：</h4>
+<p>1.创建注册的ejs模板，并且配置register页面的路由</p>
+<p>模板：</p>
+<pre><code>&lt;form action=&quot;/users/register&quot; method=&quot;post&quot; class=&quot;col-xs-12 col-sm-6 col-sm-offset-3&quot;&gt;
+   &lt;div class=&quot;form-group&quot;&gt;
+       &lt;label for=&quot;&quot;&gt;用户名：&lt;/label&gt;
+       &lt;input type=&quot;text&quot; name=&quot;username&quot; class=&quot;form-control&quot; /&gt;
+   &lt;/div&gt;
+   &lt;div class=&quot;form-group&quot;&gt;
+       &lt;label for=&quot;&quot;&gt;密码：&lt;/label&gt;
+       &lt;input type=&quot;password&quot; name=&quot;password&quot; class=&quot;form-control&quot; /&gt;
+   &lt;/div&gt;
+   &lt;div class=&quot;form-group&quot;&gt;
+       &lt;label for=&quot;&quot;&gt;昵称：&lt;/label&gt;
+       &lt;input type=&quot;text&quot; name=&quot;nickname&quot; class=&quot;form-control&quot; /&gt;
+   &lt;/div&gt;
+   &lt;div class=&quot;form-group&quot;&gt;
+       &lt;button type=&quot;submit&quot; class=&quot;btn btn-success&quot;&gt;提交&lt;/button&gt;
+       &lt;button type=&quot;reset&quot; class=&quot;btn btn-default&quot;&gt;重置&lt;/button&gt;
+   &lt;/div&gt;
+&lt;/form&gt;
+</code></pre><p>路由配置，在index主路由下（router/index.js）配置</p>
+<pre><code>router.get(&#39;/register&#39;, function(req, res, next) {
+  res.render(&#39;register&#39;, { title: &#39;Express + MongoDB&#39; });
+});
+
+</code></pre><h4 id="-">注册处理</h4>
+<p>1.配置注册功能的路由</p>
+<p>可以看到上面的register.ejs模板里表单提交的地址是在users/register，
+所以在user主路由（router/users.js）下进行配置并获取到页面post过来的数据</p>
+<pre><code>router.post(&#39;/register&#39;, function(req, res, next) {
+  //1.获取到用户传递过来的参数
+      var user={
+          username:req.body[&#39;username&#39;],
+          password:req.body[&#39;password&#39;],
+          nickname:req.body[&#39;nickname&#39;]
+      }
+  //2.操作数据库 
+
+
+});
+</code></pre><p>2.创建一个插入数据的函数</p>
+<pre><code>//插入数据的函数，插入成功后的结果给交给callback来接受
+var insertData=function(user,db,callback){
+    //获取到用户的集合
+    var conn=db.collection(&#39;user&#39;);
+    //需要插入的数据
+    var data={username:user.username,password:user.password,nickname:user.nickname};
+    //插入
+    conn.insert(data,function(err,results){
+            if(err){console.log(err)}else{
+                callback(results);
+            }
+    })
+}
+</code></pre><p>3.建立数据库的连接</p>
+<p>下载mongodb模块 -&gt;  npm install mongodb</p>
+<p>设置连接数据库的全局变量</p>
+<pre><code>//创建连接数据库的对象
+var MongoClient=require(&quot;mongodb&quot;).MongoClient;
+//数据库的地址
+var DB_CONN_STR=&quot;mongodb://127.0.0.1:27017/project&quot;;
+</code></pre><p>在注册路由里进行数据库连接后的注册处理</p>
+<p>注册成功后利用res.redirect方法重定向到登陆路由</p>
+<pre><code>//连接数据库，回调函数的db就是我们的database对象
+MongoClient.connect(DB_CONN_STR,function(err,db){
+  if(err){
+      console.log(err);
+  }else{
+      console.log(&#39;connect is success&#39;);
+      insertData(user,db,function(results){
+            //如果插入的条数为1条则成功
+            if(results.insertedCount==1){
+//                    res.send(&#39;注册成功&#39;)
+                res.redirect(&#39;/login&#39;)
+            }else{
+//                    res.send(&#39;注册失败&#39;)
+                res.redirect(&#39;/register&#39;)
+            }
+            //断开数据库连接
+            db.close();
+      });
+
+  }
+})
+</code></pre><h4 id="-">登陆</h4>
+<p>1.创建登陆模板，配置登陆页面路由（同注册）</p>
+<p>2.配置登陆功能路由，同注册</p>
+<p>3.创建一个查询数据的函数：</p>
+<pre><code>//查询数据的函数
+var findData=function(user,db,callback){
+    //获取到集合
+    var conn=db.collection(&#39;user&#39;);
+//    需要查找的数据
+    var data={username:user.username,password:user.password};
+    //开始查找并将结果装换成数据，返回到callback
+    conn.find(data).toArray(function(err,results){
+        if(err){
+            console.log(err);
+        }else{
+            callback(results)
+        }
+    })
+}
+</code></pre><p>4.在接受到登陆请求的路由操作里进行数据库连接和登陆处理</p>
+<p>登陆成功后重定向到首页</p>
+<pre><code>//2.连接数据库
+MongoClient.connect(DB_CONN_STR,function(err,db){
+  if(err){
+      console.log(err);
+  }else{
+      console.log(&#39;connect is success&#39;);
+      findData(user,db,function(results){
+          if(results.length&gt;0){
+//                res.send(&#39;登陆成功&#39;)
+                res.redirect(&#39;/&#39;);
+
+          }else{
+//                res.send(&#39;登陆失败&#39;)
+                res.redirect(&#39;/login&#39;)
+          }
+          db.close();
+      })
+
+  }
+})
+</code></pre><h4 id="-">登陆状态</h4>
+<p>当登陆成功后，首页应该显示的是注销按钮，注销之后和登陆之前显示登陆注册按钮</p>
+<p>1.下载express-session模块来进行数据的存储</p>
+<p>npm install express-session</p>
+<p>2.在app.js进行配置</p>
+<pre><code>var session=require(&quot;express-session&quot;);
+
+app.use(session({
+    secret:&#39;remmond 128 bytes random string&#39;,
+    cookie:{maxAge:20*1000*60},
+    resave:true,
+    saveUnitialized:true
+}))
+</code></pre><p>3.准备存储一个username的数据，可以在index.ejs里根据此数据进行条件判断</p>
+<p>在index主路由里设定数据</p>
+<pre><code>router.get(&#39;/&#39;, function(req, res, next) {
+  res.render(&#39;index&#39;, { 
+      title: &#39;Express + MongoDB&#39;,
+      username:req.session.username
+  });
+});
+
+</code></pre><p>在index.ejs里进行条件判断</p>
+<pre><code>&lt;% if(username){ %&gt;
+   &lt;div class=&quot;form-group&quot;&gt;           
+       &lt;a href=&quot;/logout&quot; class=&quot;btn btn-success&quot;&gt;注销&lt;/a&gt;
+   &lt;/div&gt;
+&lt;% } else { %&gt;
+   &lt;div class=&quot;form-group&quot;&gt;
+       &lt;a href=&quot;/login&quot; class=&quot;btn btn-success&quot;&gt;登陆&lt;/a&gt;
+       &lt;a href=&quot;/register&quot; class=&quot;btn btn-success&quot;&gt;注册&lt;/a&gt;
+   &lt;/div&gt;
+&lt;% } %&gt;
+</code></pre><p>在登陆成功后设置此数据为用户名（user.js）</p>
+<pre><code>req.session.username=results[0].username;
+</code></pre><h4 id="-">注销</h4>
+<p>当点击注销按钮后，发生请求到/logout，将session.username设置为undefined</p>
+<pre><code>//注销
+router.get(&#39;/logout&#39;, function(req, res, next) {
+  req.session.username=undefined;
+  res.redirect(&#39;/&#39;)
+});
+</code></pre>
+          	</article>
+        </div>
+		</div>
+  </body>
+</html>
+<script type="text/javascript" src="toc/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="toc/js/ztree_toc.js"></script>
+<script type="text/javascript" src="toc_conf.js"></script>
+
+<SCRIPT type="text/javascript" >
+<!--
+$(document).ready(function(){
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+    
+    var conf = eval(jquery_ztree_toc_opts);
+		$('#tree').ztree_toc(conf);
+});
+//-->
+</SCRIPT>

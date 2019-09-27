@@ -1,0 +1,348 @@
+<html>
+  <head>
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>i5ting_ztree_toc:nodeJS  5</title>
+		<link href="toc/style/github-bf51422f4bb36427d391e4b75a1daa083c2d840e.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/style/github2-d731afd4f624c99a4b19ad69f3083cd6d02b81d5.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css"/>
+	  <style>
+		pre {
+		    counter-reset: line-numbering;
+		    border: solid 1px #d9d9d9;
+		    border-radius: 0;
+		    background: #fff;
+		    padding: 0;
+		    line-height: 23px;
+		    margin-bottom: 30px;
+		    white-space: pre;
+		    overflow-x: auto;
+		    word-break: inherit;
+		    word-wrap: inherit;
+		}
+
+		pre a::before {
+		  content: counter(line-numbering);
+		  counter-increment: line-numbering;
+		  padding-right: 1em; /* space after numbers */
+		  width: 25px;
+		  text-align: right;
+		  opacity: 0.7;
+		  display: inline-block;
+		  color: #aaa;
+		  background: #eee;
+		  margin-right: 16px;
+		  padding: 2px 10px;
+		  font-size: 13px;
+		  -webkit-touch-callout: none;
+		  -webkit-user-select: none;
+		  -khtml-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+
+		pre a:first-of-type::before {
+		  padding-top: 10px;
+		}
+
+		pre a:last-of-type::before {
+		  padding-bottom: 10px;
+		}
+
+		pre a:only-of-type::before {
+		  padding: 10px;
+		}
+
+		.highlight { background-color: #ffffcc } /* RIGHT */
+		</style>
+  </head>
+  <body>
+	  <div>
+				<div style='width:25%;'>
+						<ul id="tree" class="ztree" style='width:100%'>
+
+						</ul>
+				</div>
+        <div id='readme' style='width:70%;margin-left:20%;'>
+          	<article class='markdown-body'>
+            	<hr>
+<h3 id="mongodb">mongoDB</h3>
+<p>这是一个数据库，与MySQL的区别就是，它是一个非关系型数据库  NoSql数据库</p>
+<h4 id="1-mongodb">1.安装MongoDB</h4>
+<p>下载对应版本的mongodb来进行安装，安装的后注意需要手动设置数据库的位置。。。详细请搜索</p>
+<p>1.在安装的时候选择安装地址，一般情况下安装在c盘（默认安装地址）即可</p>
+<p>2.我们在c盘（最好）建立一个data文件夹，在data文件夹下面再建立一个db文件夹</p>
+<p>3.在mongodb的bin文件夹下，cmd执行 mongod.exe --dbpath c:\data\db</p>
+<p>4.运行mongod.exe来启动mongodb</p>
+<p>5.依然在mongodb的bin文件夹下cmd 输入mongo回车，就可以操作mongodb，例如 show databases;</p>
+<h4 id="2-mongodb-">2.MongoDB概念</h4>
+<p>MongoDB是一个基于分布式文件存储的数据库。由C++语言编写。旨在为WEB应用提供可扩展的高性能数据存储解决方案。</p>
+<p>它的特点:高性能、易部署、易使用，存储数据非常方便。</p>
+<h4 id="3-">3.专业术语</h4>
+<table>
+<thead>
+<tr>
+<th>SQL术语、概念</th>
+<th>MongoDB术语、概念</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>database</td>
+<td>database</td>
+<td>数据库</td>
+</tr>
+<tr>
+<td>table</td>
+<td>collection</td>
+<td>表\集合</td>
+</tr>
+<tr>
+<td>row</td>
+<td>doucument</td>
+<td>数据记录行\文档</td>
+</tr>
+<tr>
+<td>column</td>
+<td>field</td>
+<td>数据字段\域</td>
+</tr>
+<tr>
+<td>index</td>
+<td>index</td>
+<td>索引</td>
+</tr>
+<tr>
+<td>table joins</td>
+<td></td>
+<td>表连接 mongodb不支持</td>
+</tr>
+<tr>
+<td>primary key</td>
+<td>primary key</td>
+<td>主键，mongodb自动将_id作为主键</td>
+</tr>
+</tbody>
+</table>
+<h4 id="4-mongodb-js-json-json-">4.mongodb的存储数据类似于js的json格式对象，或者json文件存储数据的方式：</h4>
+<pre><code>{
+    &quot;_id&quot;:ObjectId(&quot;1726iuhas678971726731&quot;),
+    &quot;age&quot;:25,
+    &quot;city&quot;:&quot;beijing&quot;,
+    &quot;email&quot;:&quot;asdgakj@qq.com&quot;
+},
+{
+    &quot;_id&quot;:ObjectId(&quot;1726iuhas678971726731&quot;),
+    &quot;age&quot;:25,
+    &quot;city&quot;:&quot;beijing&quot;,
+    &quot;email&quot;:&quot;asdgakj@qq.com&quot;
+}
+</code></pre><h4 id="5-">5.数据库</h4>
+<p>一个mongodb中可以建立多个数据库。</p>
+<p>MongoDB的默认数据库为&quot;db&quot;，该数据库存储在data目录中。</p>
+<p>MongoDB的单个实例可以容纳多个独立的数据库，每一个都有自己的集合和权限，不同的数据库也放置在不同的文件中。</p>
+<h4 id="6-">6.简单操作</h4>
+<p>show databases 查看数据库</p>
+<p>db 查看当前数据库</p>
+<p>use name 切换某个数据库</p>
+<h4 id="7-">7.文档</h4>
+<p>文档是一个键值(key-value)对(即BSON)。</p>
+<p>MongoDB 的文档不需要设置相同的字段，并且相同的字段不需要相同的数据类型，这与关系型数据库有很大的区别，也是 MongoDB 非常突出的特点。
+一个简单的文档例子如下：
+{&quot;genres&quot;: [&quot;犯罪&quot;,&quot;剧情&quot; ],&quot;title&quot;: &quot;肖申克的救赎&quot;}</p>
+<h4 id="8-">8.集合</h4>
+<p>集合就是 MongoDB 文档组，类似于 RDBMS （关系数据库管理系统：Relational Database Management System)中的表格。</p>
+<p>集合存在于数据库中，集合没有固定的结构，这意味着你在对集合可以插入不同格式和类型的数据，但通常情况下我们插入集合的数据都会有一定的关联性。</p>
+<p>{
+    &#39;title&#39;:[&#39;aaa&#39;,&quot;aaa&quot;,&quot;aaa&quot;,[&quot;a&quot;:{}]]
+},
+{
+    &#39;title&#39;:&#39;bbb&#39;
+}</p>
+<h4 id="9-">9.数据类型</h4>
+<p>String : 这是最常用的数据类型来存储数据。在MongoDB中的字符串必须是有效的UTF-8。</p>
+<p>Integer : 这种类型是用来存储一个数值。整数可以是32位或64位，这取决于您的服务器。</p>
+<p>Boolean : 此类型用于存储一个布尔值 (true/ false) 。</p>
+<p>Double : 这种类型是用来存储浮点值。</p>
+<p>Min/ Max keys : 这种类型被用来对BSON元素的最低和最高值比较。</p>
+<p>Arrays : 使用此类型的数组或列表或多个值存储到一个键。</p>
+<p>Timestamp : 时间戳。这可以方便记录时的文件已被修改或添加。</p>
+<p>Object : 此数据类型用于嵌入式的文件。</p>
+<p>Null : 这种类型是用来存储一个Null值。</p>
+<p>Symbol : 此数据类型用于字符串相同，但它通常是保留给特定符号类型的语言使用。</p>
+<p>Date : 此数据类型用于存储当前日期或时间的UNIX时间格式。可以指定自己的日期和时间，日期和年，月，日到创建对象。</p>
+<p>Object ID : 此数据类型用于存储文档的ID。</p>
+<p>Binary data : 此数据类型用于存储二进制数据。</p>
+<p>Code : 此数据类型用于存储到文档中的JavaScript代码。</p>
+<p>Regular expression : 此数据类型用于存储正则表达式</p>
+<h4 id="10-">10.库的操作</h4>
+<ul>
+<li>Help查看命令提示</li>
+</ul>
+<p>help</p>
+<p>db.help()</p>
+<p>db.test.help()</p>
+<p>db.test.find().help()</p>
+<ul>
+<li>创建/切换数据库</li>
+</ul>
+<p>use music</p>
+<ul>
+<li>查询数据库</li>
+</ul>
+<p>show dbs 空库将不会显示</p>
+<p>db.albums.insertOne({&#39;title&#39;:&#39;bey bey&#39;})来插入一条后再看</p>
+<ul>
+<li>查看当前使用的数据库</li>
+</ul>
+<p>db/db.getName()</p>
+<ul>
+<li>显示当前DB状态</li>
+</ul>
+<p>db.stats()</p>
+<ul>
+<li>查看当前DB版本</li>
+</ul>
+<p>db.version()</p>
+<ul>
+<li>查看当前DB的链接机器地址</li>
+</ul>
+<p>db.getMongo()</p>
+<ul>
+<li>删除数据库</li>
+</ul>
+<p>db.dropDatabase()</p>
+<h4 id="collection-">Collection聚集集合操作</h4>
+<p>创建一个聚集集合</p>
+<p>db.createCollection(&quot;collName&quot;, {size（集合大小）: 20, capped（固定大小，可提高使用效率）: true, max（最大值）: 100});</p>
+<p>db.collName.isCapped(); //判断集合是否为定容量</p>
+<p>得到指定名称的聚集集合</p>
+<p>db.getCollection(&quot;account&quot;);</p>
+<p>得到当前db的所有聚集集合</p>
+<p>db.getCollectionNames();</p>
+<p>显示当前db所有聚集的状态</p>
+<p>db.printCollectionStats();</p>
+<h3 id="-">添加、修改与删除集合数据</h3>
+<p>查看</p>
+<p>db.users.find()</p>
+<p>添加</p>
+<p>db.users.save({name: ‘zhangsan&#39;, age: 25, sex: true});</p>
+<p>db.users.insertOne({name: ‘zhangsan&#39;, age: 25, sex: true});</p>
+<p>db.users.insertMany([{name: ‘zhangsan&#39;, age: 25, sex: true},{name: ‘zhangsan&#39;, age: 25, sex: true}]);</p>
+<p>修改</p>
+<p>db.users.update({age: 25}(约定条件，全部修改只写{}), {$set: {name: &#39;changeName&#39;,sex:1}}, false, true);</p>
+<p>第三个参数为，如果没有这个数据，会不会创建，第四个参数为，如果有很多，是要全改true，还是只改第一条</p>
+<p>相当于：update users set name = ‘changeName&#39; where age = 25;</p>
+<p>db.users.update({name: &#39;Lisi&#39;}, {$inc: {age: 50}}, false, true);</p>
+<p>相当于：update users set age = age + 50 where name = ‘Lisi&#39;;</p>
+<p>db.users.update({name: &#39;Lisi&#39;}, {$inc: {age: 50}, $set: {name: &#39;hoho&#39;}}, false, true);</p>
+<p>相当于：update users set age = age + 50, name = ‘hoho&#39; where name = ‘Lisi&#39;;</p>
+<p>删除</p>
+<p>db.users.remove({age: 32});符合条件全删
+db.users.remove({age: 132}，{justone:true});只删一条
+db.users.remove({});删除所有document</p>
+<p>查询修改删除</p>
+<pre><code>db.users.findAndModify({
+    query: {age: {$gte: 25}}, 
+    sort: {age: -1}, 
+    update: {$set: {name: &#39;a2&#39;}, $inc: {age: 2}},
+    remove: true
+});
+
+db.runCommand({ findandmodify : &quot;users&quot;, 
+    query: {age: {$gte: 25}}, 
+    sort: {age: -1}, 
+    update: {$set: {name: &#39;a2&#39;}, $inc: {age: 2}},
+    remove: true
+});
+</code></pre><p>query 过滤条件 $gte大于</p>
+<p>sort如果多个文档符合查询过滤条件，将以该参数指定的排列方式选择出排在首位的对象，该对象将被操作，-1位为降序</p>
+<p>remove 若为true，被选中对象将在返回前被删除</p>
+<p>update 一个 修改器对象</p>
+<p>remove 创建新对象若查询结果为空</p>
+<h4 id="-">聚集集合查询</h4>
+<p>查询所有记录</p>
+<p>db.userInfo.find();</p>
+<p>相当于：select* from userInfo;</p>
+<p>查询去重后数据</p>
+<p>db.userInfo.distinct(&quot;name&quot;);</p>
+<p>相当于：select distict name from userInfo;</p>
+<p>查询age = 22的记录</p>
+<p>db.userInfo.find({&quot;age&quot;: 22});</p>
+<p>相当于： select * from userInfo where age = 22;</p>
+<p>查询age &gt; 22的记录</p>
+<p>db.userInfo.find({age: {$gt: 22}});</p>
+<p>相当于：select * from userInfo where age &gt;22;</p>
+<p>查询age &lt; 22的记录</p>
+<p>db.userInfo.find({age: {$lt: 22}});</p>
+<p>相当于：select * from userInfo where age &lt;22;</p>
+<p>查询age &gt;= 25的记录</p>
+<p>db.userInfo.find({age: {$gte: 25}});</p>
+<p>相当于：select * from userInfo where age &gt;= 25;</p>
+<p>查询age &lt;= 25的记录</p>
+<p>db.userInfo.find({age: {$lte: 25}});</p>
+<p>查询age &gt;= 23 并且 age &lt;= 26</p>
+<p>db.userInfo.find({age: {$gte: 23, $lte: 26}});</p>
+<p>查询name中包含 mongo的数据</p>
+<p>db.userInfo.find({name: /^mongo/});</p>
+<p>//相当于%%
+select * from userInfo where name like ‘%mongo%’;</p>
+<p>查询name中以mongo开头的</p>
+<p>db.userInfo.find({name: /^mongo/});</p>
+<p>相当于select * from userInfo where name like ‘mongo%’;</p>
+<p>查询指定列name、age数据</p>
+<p>db.userInfo.find({}, {name: 1, age: 1});</p>
+<p>相当于：select name, age from userInfo;</p>
+<p>查询指定列name、age数据, age &gt; 25</p>
+<p>db.userInfo.find({age: {$gt: 25}}, {name: 1, age: 1});</p>
+<p>相当于：select name, age from userInfo where age &gt;25;</p>
+<p>按照年龄排序</p>
+<p>升序：db.userInfo.find().sort({age: 1});</p>
+<p>降序：db.userInfo.find().sort({age: -1});</p>
+<p>查询name = zhangsan, age = 22的数据</p>
+<p>db.userInfo.find({name: &#39;zhangsan&#39;, age: 22});</p>
+<p>相当于：select * from userInfo where name = ‘zhangsan&#39; and age = 
+’22&#39;;</p>
+<p>查询前5条数据</p>
+<p>db.userInfo.find().limit(5);</p>
+<p>相当于：select top 5 * from userInfo;</p>
+<p>查询10条以后的数据</p>
+<p>db.userInfo.find().skip(10);</p>
+<p>相当于：select <em> from userInfo where id not in (
+   select top 10 </em> from userInfo
+);</p>
+<p>查询在5-10之间的数据</p>
+<p>db.userInfo.find().limit(10).skip(5);</p>
+<p>or与 查询</p>
+<p>db.userInfo.find({$or: [{age: 22}, {age: 25}]});</p>
+<p>相当于：select * from userInfo where age = 22 or age = 25;</p>
+<p>查询第一条数据</p>
+<p>db.userInfo.findOne();</p>
+<p>相当于：selecttop 1 * from userInfo;</p>
+<p>db.userInfo.find().limit(1);</p>
+<p>查询某个结果集的记录条数</p>
+<p>db.userInfo.find({age: {$gte: 25}}).count();</p>
+<p>相当于：select count(*) from userInfo where age &gt;= 20;</p>
+
+          	</article>
+        </div>
+		</div>
+  </body>
+</html>
+<script type="text/javascript" src="toc/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="toc/js/ztree_toc.js"></script>
+<script type="text/javascript" src="toc_conf.js"></script>
+
+<SCRIPT type="text/javascript" >
+<!--
+$(document).ready(function(){
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+    
+    var conf = eval(jquery_ztree_toc_opts);
+		$('#tree').ztree_toc(conf);
+});
+//-->
+</SCRIPT>

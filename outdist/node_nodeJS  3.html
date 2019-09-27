@@ -1,0 +1,169 @@
+<html>
+  <head>
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>i5ting_ztree_toc:nodeJS  3</title>
+		<link href="toc/style/github-bf51422f4bb36427d391e4b75a1daa083c2d840e.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/style/github2-d731afd4f624c99a4b19ad69f3083cd6d02b81d5.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css"/>
+	  <style>
+		pre {
+		    counter-reset: line-numbering;
+		    border: solid 1px #d9d9d9;
+		    border-radius: 0;
+		    background: #fff;
+		    padding: 0;
+		    line-height: 23px;
+		    margin-bottom: 30px;
+		    white-space: pre;
+		    overflow-x: auto;
+		    word-break: inherit;
+		    word-wrap: inherit;
+		}
+
+		pre a::before {
+		  content: counter(line-numbering);
+		  counter-increment: line-numbering;
+		  padding-right: 1em; /* space after numbers */
+		  width: 25px;
+		  text-align: right;
+		  opacity: 0.7;
+		  display: inline-block;
+		  color: #aaa;
+		  background: #eee;
+		  margin-right: 16px;
+		  padding: 2px 10px;
+		  font-size: 13px;
+		  -webkit-touch-callout: none;
+		  -webkit-user-select: none;
+		  -khtml-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+
+		pre a:first-of-type::before {
+		  padding-top: 10px;
+		}
+
+		pre a:last-of-type::before {
+		  padding-bottom: 10px;
+		}
+
+		pre a:only-of-type::before {
+		  padding: 10px;
+		}
+
+		.highlight { background-color: #ffffcc } /* RIGHT */
+		</style>
+  </head>
+  <body>
+	  <div>
+				<div style='width:25%;'>
+						<ul id="tree" class="ztree" style='width:100%'>
+
+						</ul>
+				</div>
+        <div id='readme' style='width:70%;margin-left:20%;'>
+          	<article class='markdown-body'>
+            	<h3 id="-">创建一个路由</h3>
+<p>后端路由：根据不同的请求返回不同的数据 </p>
+<p>server.js:</p>
+<pre><code>
+var http=require(&quot;http&quot;);
+var url=require(&quot;url&quot;);
+var router=require(&quot;./modules/router&quot;);
+
+//创建一个服务
+http.createServer((req,res)=&gt;{
+    //客户端请求的详细地址（req.url），用url模块解析之后的结果
+    var urlObj=url.parse(req.url,true,true)
+    //获取到pathname，并且去掉&#39;/&#39;
+    var pathname=urlObj.pathname.substr(1);
+
+    //如果是浏览器默认请求的favicon.ico，就让它返回404
+    if(pathname==&#39;favicon.ico&#39;){
+        router.responseError(res);
+    }else{
+        //如果客户端直接访问的是域名加端口，相当于访问首页
+        if(pathname==&#39;&#39;){
+            router[&#39;sources&#39;](&#39;index.html&#39;,res);
+        }else{
+            router[&#39;sources&#39;](pathname,res);
+        }        
+    }
+}).listen(3000,&#39;127.0.0.1&#39;,function(){
+    console.log(&#39;server is running at http://127.0.0.1:3000&#39;)
+})
+
+</code></pre><p>router.js:</p>
+<pre><code>var fs=require(&quot;fs&quot;);
+
+var router={
+    //处理客户端资源类型的请求的方法
+    &#39;sources&#39;:function(pathname,res){
+        var that=this;
+        //得到后缀名
+        var ext=pathname.split(&#39;.&#39;)[1];
+        //根据后缀名去不同的处理
+        if(ext==&#39;html&#39;){
+            that.responseFile(pathname,res,&#39;html&#39;)
+        }else if(ext==&#39;jpg&#39;||ext==&#39;png&#39;){
+            that.responseFile(pathname,res,&#39;img&#39;)
+        }        
+    },
+    responseError:function(res){
+        res.writeHead(404,{&quot;content-Type&quot;:&#39;text/plain&#39;})
+        res.write(&#39;source is not found&#39;)
+        res.end()
+    },
+    responseFile:function(pathname,res,type){
+        var that=this;
+        //读取资源
+        fs.readFile(&#39;static/&#39;+type+&#39;/&#39;+pathname,function(err,data){
+            if(err){
+                //如果无此资源，返回404
+                that.responseError(res)
+            }else{    
+                //将资源内容响应回去
+                res.writeHead(200,{&quot;content-Type&quot;:that.getContentType(type)})
+                res.write(data)
+                res.end()
+            }
+        })
+    },
+    getContentType:function(type){//根据类型设置content-Type
+        var contentType=&#39;&#39;;
+        if(type==&#39;html&#39;){
+            contentType=&#39;text/html;charset=utf-8&#39;
+        }else if(type==&#39;img&#39;){
+            contentType=&#39;image/jpeg&#39;
+        }else{
+            contentType=&#39;text/plain&#39;
+        }
+        return contentType;
+    }
+}
+
+module.exports=router;
+</code></pre>
+          	</article>
+        </div>
+		</div>
+  </body>
+</html>
+<script type="text/javascript" src="toc/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="toc/js/ztree_toc.js"></script>
+<script type="text/javascript" src="toc_conf.js"></script>
+
+<SCRIPT type="text/javascript" >
+<!--
+$(document).ready(function(){
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+    
+    var conf = eval(jquery_ztree_toc_opts);
+		$('#tree').ztree_toc(conf);
+});
+//-->
+</SCRIPT>

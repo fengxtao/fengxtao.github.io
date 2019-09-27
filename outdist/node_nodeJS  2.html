@@ -1,0 +1,309 @@
+<html>
+  <head>
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>i5ting_ztree_toc:nodeJS  2</title>
+		<link href="toc/style/github-bf51422f4bb36427d391e4b75a1daa083c2d840e.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/style/github2-d731afd4f624c99a4b19ad69f3083cd6d02b81d5.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css"/>
+	  <style>
+		pre {
+		    counter-reset: line-numbering;
+		    border: solid 1px #d9d9d9;
+		    border-radius: 0;
+		    background: #fff;
+		    padding: 0;
+		    line-height: 23px;
+		    margin-bottom: 30px;
+		    white-space: pre;
+		    overflow-x: auto;
+		    word-break: inherit;
+		    word-wrap: inherit;
+		}
+
+		pre a::before {
+		  content: counter(line-numbering);
+		  counter-increment: line-numbering;
+		  padding-right: 1em; /* space after numbers */
+		  width: 25px;
+		  text-align: right;
+		  opacity: 0.7;
+		  display: inline-block;
+		  color: #aaa;
+		  background: #eee;
+		  margin-right: 16px;
+		  padding: 2px 10px;
+		  font-size: 13px;
+		  -webkit-touch-callout: none;
+		  -webkit-user-select: none;
+		  -khtml-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+
+		pre a:first-of-type::before {
+		  padding-top: 10px;
+		}
+
+		pre a:last-of-type::before {
+		  padding-bottom: 10px;
+		}
+
+		pre a:only-of-type::before {
+		  padding: 10px;
+		}
+
+		.highlight { background-color: #ffffcc } /* RIGHT */
+		</style>
+  </head>
+  <body>
+	  <div>
+				<div style='width:25%;'>
+						<ul id="tree" class="ztree" style='width:100%'>
+
+						</ul>
+				</div>
+        <div id='readme' style='width:70%;margin-left:20%;'>
+          	<article class='markdown-body'>
+            	<h3 id="url-">URL模块</h3>
+<p>这个模块可以帮助我们解析url地址，从里面提取很多有用的内容供我们使用；</p>
+<p>url.parse(urlString[, parseQueryString[, slashesDenoteHost]])</p>
+<p>会返回一个解析后的对象，第一个参数为要解析的url地址，第二个参数为是否将query字符串解析成对象格式，第二个参数来控制在没有协议的情况下，是否解析域名等内容</p>
+<p>url.format(urlObject)</p>
+<p>将一个url解析后的对象还原成一个url地址</p>
+<p>url.resolve(from, to)</p>
+<p>可以将我们两段url解析成一个url地址</p>
+<pre><code>console.log(url.resolve(&#39;http://www.baidu.com&#39;,&#39;/api/index.html&#39;))
+//&#39;http://www.baidu.com/api/index.html&#39;
+</code></pre><hr>
+<h3 id="querystring">queryString</h3>
+<p>可以将我们的queryString字符串(a=1&amp;b=2&amp;c=3)解析或反编译</p>
+<p>querystring.stringify(obj[, sep[, eq[, options]]]):</p>
+<p>可以将一个对象（键值对）解析成一个querystring,第二个参数可以设置分割符号（&amp;）,第三个参数确定键值对之间的链接符号（=）</p>
+<p>querystring.parse(str[, sep[, eq[, options]]])</p>
+<p>可以将一个qs字符串解析成一个对象，后面的参数是按照某种规则去解析</p>
+<p>querystring.escape(str),querystring.unescape(str)</p>
+<p>可以将我们的中文解析成百分号编码</p>
+<pre><code>console.log(qs.escape(&#39;北京&#39;))//%E5%8C%97%E4%BA%AC
+console.log(qs.unescape(&#39;%E5%8C%97%E4%BA%AC&#39;))//北京
+
+
+</code></pre><hr>
+<h3 id="http-">http小爬虫</h3>
+<p>利用http.get方法去获取到某网址的html文件内容，然后利用cheerio工具进行关键内容的提取</p>
+<p>1.引入模块和设置全局变量</p>
+<pre><code>//引入https模块（因为需要爬取的网址协议是https）
+var https=require(&#39;https&#39;);
+//cheerio模块是可以将一段html字符串解析成模拟的jq对象，使用jq方法来进行操作
+var cheerio=require(&#39;cheerio&#39;);
+//需要爬取的网址
+var url=&#39;https://www.lagou.com/&#39;;
+
+</code></pre><p>2.请求数据</p>
+<p>get方法可以模拟请求，获取到某个网址下的文件的内容，第一个参数url地址（要爬取的网址），回调函数里会返回一个res对象，可以给res对象绑定一些事件来进行操作</p>
+<pre><code>
+https.get(url,function(res){
+    //存储我们爬取到的内容
+    var html=&#39;&#39;;
+
+    //data事件会在爬取到内容的时候触发多次，每一都会在回调函数里返回chunk（部分内容）
+    res.on(&#39;data&#39;,function(chunk){
+        html+=chunk;
+    })
+    //end事件会在全部爬取完毕后触发
+    res.on(&#39;end&#39;,function(){
+        //过滤出菜单内容
+        var menuData=filterMenu(html);
+        //输出菜单内容
+        controlMenu(menuData)
+    })
+    //error事件在出现错误后触发，返回错误信息
+    res.on(&quot;error&quot;,function(err){
+        console.log(err)
+    })
+});
+</code></pre><p>3.设计数据结构</p>
+<pre><code>//设计的解析结构
+//[
+//    {
+//        menuTitle:&#39;技术&#39;,
+//        menuList:[
+//            &#39;java&#39;,&#39;php&#39;
+//        ]
+//    }
+//]
+</code></pre><p>4.解析html字符串并提取内容的函数</p>
+<pre><code>function filterMenu(html){
+    //将html字符串解析成模拟jq对象
+    var $=cheerio.load(html);
+    //存放菜单数据的数组
+    var menuData=[];
+    //获取到所有的菜单dom
+    var menu=$(&quot;.menu_main&quot;);
+    //遍历，过滤，提取
+    menu.each(function(i,value){
+        var menuTitle=$(value).find(&#39;h2&#39;).text();
+        var menuLists=$(value).find(&#39;a&#39;);
+        var menuList=[];
+        menuLists.each(function(i,value){
+            menuList.push($(value).text())
+        })
+        menuData.push({
+            menuTitle:menuTitle,
+            menuList:menuList
+        })
+    })
+
+     return menuData;
+
+}
+</code></pre><p>5.处理提取后内容的函数，这里只做了输出</p>
+<pre><code>//处理过滤完成后菜单数据的函数
+function controlMenu(menu){
+    menu.forEach(function(item,index){
+        console.log(item.menuTitle+&#39;\n&#39;);
+        item.menuList.forEach(function(item,index){
+            console.log(item+&#39;\n&#39;);
+
+        })
+    })
+}
+
+</code></pre><p>关键技术点：https，https.get，data、end、error事件，cheerio模块</p>
+<hr>
+<h3 id="requestget-requestpost">requestGet/requestPost</h3>
+<p>通过request来get数据（请求的是豆瓣电影的api）：</p>
+<p>1.引入模块和设置全局变量</p>
+<pre><code>//引入https模块
+const https = require(&#39;https&#39;);
+//配置请求的选项
+//http的服务器的默认端口是80，https的服务器默认端口是443
+var options = {
+  hostname: &#39;api.douban.com&#39;,
+  port: 443,
+  path: &#39;/v2/movie/in_theaters&#39;,
+  method: &#39;GET&#39;
+};
+</code></pre><p>2.设置请求的过程</p>
+<pre><code>//发送请求并赋值变量
+var req = https.request(options, (res) =&gt; {
+  console.log(&#39;状态码：&#39;, res.statusCode);
+  console.log(&#39;请求头：&#39;, res.headers);
+
+  var requestData=&#39;&#39;;
+  res.on(&#39;data&#39;, (chunk) =&gt; {
+      requestData+=chunk;
+  });
+
+  res.on(&#39;end&#39;,function(){
+      console.log(JSON.parse(requestData).subjects[0].title)
+  })
+
+});
+//绑定错误处理事件
+req.on(&#39;error&#39;, (e) =&gt; {
+  console.error(e);
+});
+//请求完成后end结束
+req.end();
+</code></pre><p>通过request的post方法来刷评论（扣丁学堂）：</p>
+<p>1.引入模块和设置全局变量</p>
+<pre><code>//引入http模块和qs模块
+const http = require(&#39;http&#39;);
+const qs=require(&#39;querystring&#39;);
+//要发送的数据，需要解析成querystring（a=1&amp;b=2）
+var postData=qs.stringify({
+    &#39;question[title]&#39;:&#39;1701表示很满意&#39;,
+    &#39;question[content]&#39;:&#39;&lt;p&gt;1701表示很满意&lt;/p&gt;&#39;,
+    &#39;question[courseId]&#39;:&#39;221&#39;,
+    &#39;question[lessonId]&#39;:&#39;1698&#39;,
+    &#39;_csrf_token&#39;:&#39;4df960e69a84f1a05b551cd66cff159f7bd70349&#39;
+})
+</code></pre><p>2.配置请求的选项</p>
+<pre><code>var options = {
+  hostname: &#39;www.codingke.com&#39;,
+  port: 80,
+  path: &#39;/ajax/create/course/question&#39;,
+  method: &#39;POST&#39;,
+    headers:{//这个例子需要传入headers，因为在cookie里保存了我们的登陆信息，没有登陆信息的话是不能评论的
+        &#39;Accept&#39;:&#39;*/*&#39;,
+            &#39;Accept-Encoding&#39;:&#39;gzip, deflate&#39;,
+            &#39;Accept-Language&#39;:&#39;zh-CN,zh;q=0.8&#39;,
+            &#39;Connection&#39;:&#39;keep-alive&#39;,
+            &#39;Content-Length&#39;:postData.length,
+            &#39;Content-Type&#39;:&#39;application/x-www-form-urlencoded; charset=UTF-8&#39;,
+            &#39;Cookie&#39;:&#39;PHPSESSID=a7hmtvdr7odale2npuoe8kquo1; UM_distinctid=15bcc291625965-0b7625ecfa7e2b-4e47052e-100200-15bcc29162651c; CNZZDATA1256018185=1628677493-1493778687-null%7C1493778687; Hm_lvt_9f92046de4640f3c08cf26535ffdd93c=1493778896; Hm_lpvt_9f92046de4640f3c08cf26535ffdd93c=1493778931&#39;,
+            &#39;Host&#39;:&#39;www.codingke.com&#39;,
+            &#39;Origin&#39;:&#39;http://www.codingke.com&#39;,
+            &#39;Referer&#39;:&#39;http://www.codingke.com/v/326-chapter-221-course&#39;,
+            &#39;User-Agent&#39;:&#39;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36&#39;,
+            &#39;X-CSRF-Token&#39;:&#39;4df960e69a84f1a05b551cd66cff159f7bd70349&#39;,
+            &#39;X-Requested-With&#39;:&#39;XMLHttpRequest&#39;
+    }
+};
+</code></pre><p>3.设置发送步骤</p>
+<pre><code>//发送请求并赋值变量
+var req = http.request(options, (res) =&gt; {
+
+  res.on(&#39;data&#39;, (chunk) =&gt; {
+      console.log(chunk.toString())
+  });
+
+  res.on(&#39;end&#39;,function(){
+      console.log(&#39;发送成功&#39;)
+  })
+
+});
+//绑定错误处理事件
+req.on(&#39;error&#39;, (e) =&gt; {
+  console.error(e);
+});
+//发送数据
+req.write(postData)
+//请求完成后end结束
+req.end();
+</code></pre><hr>
+<h3 id="event_emitter">event_emitter</h3>
+<p>nodejs是事件驱动的，比如前面res就有data、end事件，我们也可以创建一个对象，给它定义一些事件，在某种情况下去触发这个事件</p>
+<p>依靠的是events模块，请求到的啊eventEmitter类</p>
+<pre><code>
+//引入EventEmitter模块，这是一个类class
+const EventEmitter=require(&#39;events&#39;)
+
+//创建一个Player类来继承EventEmitter类
+class Player extends EventEmitter {};
+
+//实例化一个播放器对象
+var player=new Player();
+//给播放器对象添加一个事件
+player.on(&quot;play&quot;,(name)=&gt;{
+    console.log(&#39;正在播放:&#39;+name)
+})
+//在某种情况下触发这个事件
+player.emit(&#39;play&#39;,&#39;大头儿子小头爸爸&#39;);
+</code></pre><hr>
+<h3 id="filestystem">fileStystem</h3>
+<hr>
+<h3 id="stream">stream</h3>
+
+          	</article>
+        </div>
+		</div>
+  </body>
+</html>
+<script type="text/javascript" src="toc/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="toc/js/ztree_toc.js"></script>
+<script type="text/javascript" src="toc_conf.js"></script>
+
+<SCRIPT type="text/javascript" >
+<!--
+$(document).ready(function(){
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+    
+    var conf = eval(jquery_ztree_toc_opts);
+		$('#tree').ztree_toc(conf);
+});
+//-->
+</SCRIPT>

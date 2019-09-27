@@ -24,17 +24,18 @@ const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000;
 const HOST = process.env.HOST || IPAddress;
 
 const options = {
-    contentBase: path.resolve(__dirname, 'dist'),
+    // contentBase: process.cwd(),
     hot: true,
     inline: true,
     host: HOST,
     disableHostCheck: true,
-    open:true
+    // open:true
 };
 
 choosePort(HOST,DEFAULT_PORT).then((port)=>{
     webpackDevServer.addDevServerEntrypoints(config, options);
     const compiler = webpack(config);
+    console.log('host:',HOST)
     const server = new webpackDevServer(compiler, options);
     
     server.listen(port, HOST, err => {
@@ -45,7 +46,7 @@ choosePort(HOST,DEFAULT_PORT).then((port)=>{
         clearConsole();
       }
       console.log(chalk.cyan('Starting the development server...\n'));
-      // openBrowser('http://'+HOST+':'+port);
+      openBrowser('http://'+HOST+':'+port);
      
     });
 })

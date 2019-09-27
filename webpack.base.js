@@ -4,15 +4,14 @@ const fs = require ('fs')
 const webpack = require("webpack")
 const htmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const baseUrl=path.resolve(__dirname);
-
+const pwd = process.cwd();
 module.exports={
     entry: {
         app:'./src/index.tsx'
     },
     output: {
         filename: '[name]_main_[hash].js',
-        path: path.resolve(__dirname,'dist'),
+        path: path.resolve(__dirname,'outdist'),
         chunkFilename: '[name]_chunk_[chunkhash].js',
     },
     module: {
@@ -46,7 +45,7 @@ module.exports={
                 "loader":'file-loader',
                 options:{
                     name:"[name].[ext]",
-                    outputPath:"",
+                    outputPath:path.join(pwd,'outdist'),
                     publicPath:"",
                 }
             }]
@@ -77,7 +76,7 @@ module.exports={
     plugins:[
         new ExtractTextPlugin('[name].style.[hash].css'),
         new webpack.DefinePlugin( {
-            "__TITLE__":JSON.stringify('titles')
+            "__OUTDIST__":JSON.stringify('')
         } )
     ],
     resolve: {
