@@ -5,26 +5,26 @@ const clearWebpackPlugin = require('clean-webpack-plugin')
 const webpack = require("webpack")
 const merge = require('webpack-merge')
 // const webpack=require('webpack')
-
+const pwd = process.cwd();
 const baseUrl=path.resolve(__dirname);
-const outdist = 'outdist'
+const outdist = 'outdist1'
 const baseConfig=require('./webpack.base');
 let proConfig={
     mode:'production',
     module:{
-        rules:[
-            {
-                test: /\.(png|svg|jpg|gif)$/,
-                use: [{
-                    "loader":'file-loader',
-                    options:{
-                        name:"[name].[ext]",
-                        outputPath:'',
-                        publicPath:"",
-                    }
-                }]
-            },
-        ]
+        // rules:[
+        //     {
+        //         test: /\.(png|svg|jpg|gif)$/,
+        //         use: [{
+        //             "loader":'file-loader',
+        //             options:{
+        //                 name:"[name].[ext]",
+        //                 outputPath:'',
+        //                 publicPath:''
+        //             }
+        //         }]
+        //     },
+        // ]
     },
 	// output: {
     //     filename: '[name]_main_[hash].js',
