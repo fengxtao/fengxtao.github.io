@@ -3,7 +3,7 @@ import ReactDOM = require ('react-dom')
 // import React from 'react' ;
 // import ReactDOM from'react-dom';
 import './style.scss'
-import './img/SAVE_20190920_140911.jpg'
+// import './img/SAVE_20190920_140911.jpg'
 import catalogue = require('./catalogue.json')
 console.log(catalogue,'catalogue')
 
@@ -33,7 +33,7 @@ class Hello extends React.Component<HelloProps, {catalogue:Array<any>}> {
     componentDidMount(){
        let bgImg = document.createElement("img");
        try{
-        bgImg.setAttribute("src",'./outdist/SAVE_20190920_140911.jpg');
+        bgImg.setAttribute("src",'./outdist/img/SAVE_20190920_140911.jpg');
         bgImg.style.width="100%";
         bgImg.style.height="100%";
         bgImg.onload=function(){
