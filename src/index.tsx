@@ -8,11 +8,14 @@ import catalogue = require('./catalogue.json')
 console.log(catalogue,'catalogue')
 
 interface catalogueEl { src:string ; title :string };
-interface HelloProps { compiler: string; framework: string; catalogue:Array<any>};
+interface HelloProps {  catalogue:Array<catalogueEl>};
+interface HelloState {  catalogue:Array<catalogueEl>};
 // 'HelloProps' describes the shape of props.
 // State is never set so we use the '{}' type.
 let imgContainer:any;
-class Hello extends React.Component<HelloProps, {catalogue:Array<any>}> {
+
+
+class Hello extends React.Component<HelloProps, HelloState> {
 
     constructor(props:any,context:any){
         super(props,context)
@@ -33,9 +36,10 @@ class Hello extends React.Component<HelloProps, {catalogue:Array<any>}> {
     componentDidMount(){
        let bgImg = document.createElement("img");
        try{
-        bgImg.setAttribute("src",'./outdist/img/SAVE_20190920_140911.jpg');
+        bgImg.setAttribute("src",'./outdist/img/IMG_20190831_215117.jpg');
         bgImg.style.width="100%";
         bgImg.style.height="100%";
+        bgImg.style.transform='rotate(180deg)';
         bgImg.onload=function(){
           imgContainer.appendChild(bgImg);
           imgContainer.style.zIndex='-1';
@@ -65,6 +69,6 @@ class Hello extends React.Component<HelloProps, {catalogue:Array<any>}> {
 }
 
 ReactDOM.render(
-    <Hello compiler="TypeScript" framework="React" catalogue={catalogue} />
+    <Hello catalogue={catalogue} />
   , document.getElementById('app')
 );
