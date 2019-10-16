@@ -42,11 +42,12 @@ module.exports={
             {
                 test: /\.(png|svg|jpg|gif)$/,
                 use: [{
-                    "loader":'file-loader',
+                    "loader":'url-loader',
                     options:{
                         name:"[name].[ext]",
-                        outputPath:'',
-                        publicPath:'',
+                        outputPath:'/img',
+                        publicPath:'./img',
+                        limit:8192
                     }
                 }]
             },

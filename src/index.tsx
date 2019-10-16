@@ -34,20 +34,20 @@ class Hello extends React.Component<HelloProps, HelloState> {
     }
 
     componentDidMount(){
-       let bgImg = document.createElement("img");
-       try{
-        bgImg.setAttribute("src",'./outdist/img/EA395BB6-FBD2-40DA-B7AE-2A11DADA4223.png');
-        bgImg.style.width="100%";
-        bgImg.style.height="100%";
-        // bgImg.style.transform='rotate(180deg)';
-        bgImg.onload=function(){
-          imgContainer.appendChild(bgImg);
-          imgContainer.style.zIndex='-1';
-          document.getElementById('app').style.background='transparent'
-        }
-       }catch(e){
-           console.log(e)
-       }
+    //    let bgImg = document.createElement("img");
+    //    try{
+    //     bgImg.setAttribute("src",'./outdist/img/EA395BB6-FBD2-40DA-B7AE-2A11DADA4223.png');
+    //     bgImg.style.width="100%";
+    //     bgImg.style.height="100%";
+    //     // bgImg.style.transform='rotate(180deg)';
+    //     bgImg.onload=function(){
+    //       imgContainer.appendChild(bgImg);
+    //       imgContainer.style.zIndex='-1';
+    //       document.getElementById('app').style.background='transparent'
+    //     }
+    //    }catch(e){
+    //        console.log(e)
+    //    }
        
     }
     render() {

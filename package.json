@@ -8,8 +8,8 @@
     "transformMD": "node scripts/transformMD/start.js && sleep 3 && node scripts/transformMD/adjustStruct.js",
     "dev": "webpack-dev-server --open --config webpack.config.dev.js --mode development",
     "nodeDev": " node scripts/start",
-    "start": "npm run transformMD && npm run moveImg && npm run dev",
-    "build": "npm run transformMD && webpack --config webpack.config.pro.js --mode production && npm run moveImg",
+    "start": "npm run transformMD && npm run dev",
+    "build": "npm run transformMD && webpack --config webpack.config.pro.js --mode production",
     "moveImg":"node scripts/moveImg/index.js",
     "lines": "find src -name \"*.tsx\" | xargs cat | wc -l"
   },
