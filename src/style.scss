@@ -20,12 +20,13 @@ a{text-decoration:none}
 }
 #app{
   height: 100%;
-  // background: url('./img/115641568280537_.pic_hd.jpg') no-repeat;
-  // background: url('./img/WechatIMG11527.jpg') no-repeat;
-  // background: url('./img/IMG_20190906_115133.jpg') no-repeat;
+  background: url('./img/EA395BB6-FBD2-40DA-B7AE-2A11DADA4223.png');
+  background-repeat: no-repeat;
+  background-position: 0% 0%;
+  background-size: 100%;
   position: relative;
   background-size:cover;
-  background: #bbdfde;
+  // background: #bbdfde;
   display: flex;
   flex-direction: column;
   .bg{
@@ -39,6 +40,7 @@ a{text-decoration:none}
     padding: 20px 100px;
     height: 100px;
     box-sizing: border-box;
+    background: transparent;
     // background: #666666;
     // border-bottom: 2px greenyellow solid;
     flex-grow: 0;
@@ -56,7 +58,7 @@ a{text-decoration:none}
     }
   }
   .catalogue-container{
-    background: url('./img/EA395BB6-FBD2-40DA-B7AE-2A11DADA4223.png');
+    background: transparent;
     flex-grow: 1;
     padding: 20px 100px;
     // background: hotpink;
