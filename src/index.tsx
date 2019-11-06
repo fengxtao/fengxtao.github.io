@@ -3,6 +3,7 @@ import ReactDOM = require ('react-dom')
 // import React from 'react' ;
 // import ReactDOM from'react-dom';
 import './style.scss'
+// import './style.css'
 // import './img/SAVE_20190920_140911.jpg'
 import catalogue = require('./catalogue.json')
 console.log(catalogue,'catalogue')

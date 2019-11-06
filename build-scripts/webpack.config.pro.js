@@ -6,7 +6,7 @@ const webpack = require("webpack")
 const merge = require('webpack-merge')
 // const webpack=require('webpack')
 const pwd = process.cwd();
-const baseUrl=path.resolve(__dirname);
+
 const outdist = 'outdist'
 const baseConfig=require('./webpack.base');
 let proConfig={
@@ -16,8 +16,8 @@ let proConfig={
 	plugins: [
 		// new clearWebpackPlugin(['dist'],{root: baseUrl}),
 		new htmlWebpackPlugin({
-            filename: path.join(baseUrl,'outdist/index.html'),
-            template: path.join(baseUrl,'src/index.html'),
+            filename: path.join(pwd,'outdist/index.html'),
+            template: path.join(pwd,'src/index.html'),
             inject: 'body',
             chunks:['app']
         }),//html生成

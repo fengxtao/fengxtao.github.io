@@ -14,7 +14,7 @@ const pwd = process.cwd();
             console.log(`stderr: ${stderr}`);
         });
     }
-    // //重命名 preview 为dist
+    //重命名 preview 为dist
     fs.renameSync( process.cwd()+'/preview', 'outdist', function(err) {
         console.log('md-html 产出到dist:err',err)
         if (!err) {
@@ -34,7 +34,7 @@ const pwd = process.cwd();
                 dir_file_last = dir_file.split(".").pop();
                 if(dir_file_last === 'html'){
                     titles.push({
-                        src:path.join('outdist',dir_file),
+                        src:path.join(dir_file),
                         title:dir_file_name
                     })
                 }
